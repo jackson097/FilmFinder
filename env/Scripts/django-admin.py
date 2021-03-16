@@ -1,4 +1,4 @@
-#!c:\users\ashaab\desktop\cp465\filmfinder\env\scripts\python.exe
+#!C:\Users\kcran\Documents\Github\FilmFinder\env\Scripts\python.exe
 # When the django-admin.py deprecation ends, remove this script.
 import warnings
 
