@@ -8,9 +8,9 @@ for the URL the server is being run at, usually its http://127.0.0.1:8000/.
 
 ## Starting Database server
 Download most recent version of XAMPP from the Apache Friend site https://www.apachefriends.org/download.html. 
-![image](https://user-images.githubusercontent.com/43149026/111339604-464db180-864e-11eb-808b-58b9500ff55c.png)
-<br/>Run the installer and select all components to install and click next.
-![image](https://user-images.githubusercontent.com/43149026/111339853-7e54f480-864e-11eb-9bce-fe8f8006a111.png)
-<br/>Choose a folder or keep it at default and click next. XAMPP should now be installed, run the .exe and start the MySQL server. 
+![image](https://user-images.githubusercontent.com/43149026/111339604-464db180-864e-11eb-808b-58b9500ff55c.png)<br/>
+Run the installer and select all components to install and click next.
+![image](https://user-images.githubusercontent.com/43149026/111339853-7e54f480-864e-11eb-9bce-fe8f8006a111.png)<br/>
+Choose a folder or keep it at default and click next. XAMPP should now be installed, run the .exe and start the MySQL server. 
 
 
