@@ -76,24 +76,24 @@ WSGI_APPLICATION = 'filmFinder.wsgi.application'
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
 
 ## If MySQL DB not configured, then use SQLite DB below.
+# DATABASES = {
+    # 'default': {
+        # 'ENGINE': 'django.db.backends.mysql',
+        # 'NAME': 'CP465',
+        # 'USER': 'root',
+        # 'PASSWORD': '',
+        # 'HOST': 'localhost',
+        # 'PORT': '3306',
+    # }
+# }
+
+# Use if MySQL DB not configured. 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'CP465',
-        'USER': 'root',
-        'PASSWORD': '',
-        'HOST': 'localhost',
-        'PORT': '3306',
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
-
-## Use if MySQL DB not configured. 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.sqlite3',
-#         'NAME': BASE_DIR / 'db.sqlite3',
-#     }
-# }
 
 
 # Password validation
