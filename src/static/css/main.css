@@ -54,14 +54,14 @@ input[type=text]:focus {
 
 .avatar {
     display: flex;
+    background-color: white;
     justify-content: center;
     align-items: center;
     width: 40px;
     height: 40px;
     border-radius: 50%;
     overflow: hidden;
-    float: right;
-    border: 1px solid black;
+    float: left;
 }
 
 .subtitle {
@@ -84,4 +84,12 @@ input[type=text]:focus {
     color: darkred;
 }
 
+.dropdown-toggle[aria-expanded="true"]:after {
+    transform: rotate(180deg);
+}
+  
+/*for the animation*/
+.dropdown-toggle:after {
+    transition: 0.5s;
+}
 
