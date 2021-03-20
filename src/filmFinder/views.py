@@ -5,4 +5,4 @@ def home_page(request):
     context = {
         "title":"Film Finder"
     }
-    return render(request, "home_page.html", context)
+    return render(request, "search.html", context)
