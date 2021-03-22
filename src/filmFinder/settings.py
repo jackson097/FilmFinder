@@ -39,7 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
-    'Movies','Genres','Person','Jobs','Reception','Background','Audience'
+    'Movies','Genres','Person','Jobs','Reception','Background','Audience','accounts'
 ]
 
 MIDDLEWARE = [
@@ -52,6 +52,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
+LOGOUT_REDIRECT_URL = '/login'
 ROOT_URLCONF = 'filmFinder.urls'
 
 TEMPLATES = [

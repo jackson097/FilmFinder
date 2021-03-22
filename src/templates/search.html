@@ -37,11 +37,15 @@
             </div>
         </div>
         <!-- Recommended Movies -->
-        <div class="row ">
-            
+        <div class="row">
+            {% for object in movies %}
+            <p class="lead">{{object.title}}</p>
+            {%endfor%}
         </div>
     </div>
-    <div class="col-3"></div>
+    <div class="col-3">
+        
+    </div>
 </div>
 
 {% endblock %}

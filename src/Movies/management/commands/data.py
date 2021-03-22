@@ -3,7 +3,7 @@ import csv
 from Movies.models import Movie, MovieGenre
 
 class Command(BaseCommand):
-    help = 'test'
+    help = 'Script to import Imdb data into tables'
 
     def handle(self, *args, **options):
         # importing title basics into appropiate tables. 
