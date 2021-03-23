@@ -4,4 +4,4 @@ from Movies.models import Movie
 # Create your views here.
 def home(request): 
     movies = Movie.objects.all() 
-    return render(request,'main/index.html',{"movies":movies}) 
+    return render(request,'search.html',{"movies":movies}) 
