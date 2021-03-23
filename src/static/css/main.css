@@ -93,3 +93,7 @@ input[type=text]:focus {
     transition: 0.5s;
 }
 
+.btn {
+    color: white;
+    background-color: red;
+}
