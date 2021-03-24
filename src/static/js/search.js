@@ -23,8 +23,19 @@ function getSearchHistory() {
 
         var previous = document.getElementById("subtitle_row");
         var entries = recent_searches.split(",");
+
+        length = entries.length;
+        if (length > 4) {
+            length = 4;
+        } 
         
-        for (i = 0; i < entries.length; i++) {
+        if (length <= 2) {
+            document.getElementById("box").style.height = "65vh";
+        } else {
+            document.getElementById("box").style.height = "70vh";
+        }
+        
+        for (i = 0; i < length; i++) {
             var entry_div = document.createElement('div');
             var entry_col = document.createElement('div');
             var link = document.createElement('a');
