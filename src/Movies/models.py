@@ -3,11 +3,11 @@ from Genres.models import Genre
 from Person.models import Person
 
 class Movie(models.Model):
-    movie_id    = models.CharField(max_length=120, blank=True, null=True)
+    movie_id    = models.AutoField(primary_key=True)
     title       = models.CharField(max_length=120, blank=True, null=True)
 
     def __str__(self):
-        return self.movie_id
+        return str(self.movie_id)
 
 class MovieGenre(models.Model):
     movie_id = models.ForeignKey(Movie, null=True, blank=True, on_delete=models.CASCADE)
