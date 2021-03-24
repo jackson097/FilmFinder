@@ -6,7 +6,7 @@ from Movies.models import Movie, MovieGenre
 from Genres.models import Genre
 
 def home_page(request):
-    movie = Movie.objects.all()
+    movie = MovieGenre.objects.all()
     genre = Genre.objects.all()
     context = {
         "title":"Film Finder",

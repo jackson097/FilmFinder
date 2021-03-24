@@ -1,15 +1,14 @@
 from django.shortcuts import render
-from Movies.models import Movie
+from Movies.models import Movie, MovieGenre
 from Genres.models import Genre
 
 # Create your views here.
 def home(request): 
-    movies = Movie.objects.all() 
+    movies = MovieGenre.objects.all() 
     genres = Genre.objects.all()
     
     context = {
-        "movies":movies,
-        "genres":genres
+        "obj":movies,
+        "genre":genres
     }
-
     return render(request,'search.html', context) 

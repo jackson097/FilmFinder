@@ -41,7 +41,7 @@
         <!-- Recommended Movies -->
         <div class="row">
             {% for object in movies %}
-            <p class="lead">{{object.title}}</p>
+            <p class="lead">{{object.movie_id.title}}, {{object.genre_id.genre_title}}</p>
             {%endfor%}
         </div>
     </div>
