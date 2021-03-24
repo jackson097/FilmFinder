@@ -97,3 +97,13 @@ input[type=text]:focus {
     color: white;
     background-color: red;
 }
+
+.img-responsive {
+    display: block;
+    width: 375px;
+    height: auto;
+}
+
+.link-primary {
+    color: red;
+}
