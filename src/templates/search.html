@@ -66,6 +66,9 @@
         <!-- Recommended Movies -->
         <div class="row">
             {% for object in movies %}
+            <div class="col-3 lead">
+                {{object.0.title}}
+            </div>
             <!-- <p class="lead">{{object.0.title}}</p> -->
             {%endfor%}
         </div>
