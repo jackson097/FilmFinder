@@ -1,4 +1,50 @@
-<form method="POST">{% csrf_token %}
-    {{form}}
-    <button type="submit" class="btn btn-default">Submit</button>
-</form>
+<!-- TODO: ADD ERROR HANDLING -->
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>{{title}}</title>
+
+        {% load static %}
+
+        <!-- Required meta tags -->
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        
+        <!-- Fonts -->
+        <link rel="preconnect" href="https://fonts.gstatic.com">
+        <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
+
+        <!-- jQuery -->
+        <script src="https://code.jquery.com/jquery-3.6.0.js"integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="crossorigin="anonymous"></script>
+
+        <!-- Bootstrap CSS -->
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
+
+        <!-- CSS -->
+        <link rel="stylesheet" type="text/css" href="{% static 'css/main.css' %}">
+        
+    </head>
+    <body>
+        <div id="login">
+            <div class="container-fluid text-center bg-dark pt-3 px-4 min-vh-100 d-flex flex-column row justify-content-center align-items-center">
+                <nav class="navbar navbar-expand-lg navbar-dark bg-transparent row justify-content-center align-items-center">
+                    <img class="img-responsive" src="{% static 'images\Logo.svg' %}"></a>
+                </nav>
+                <p class="text-center text-white">A movie search engine which makes recommendations based on the searches you make</p>
+                <a class="link-primary" href="www.google.com">Sign up</a><p class="text-center text-white"> or log in below:</p>
+                <nav>
+                    <form method="POST">{% csrf_token %}
+                        {{form}}
+                        <button type="submit" class="btn btn-default">Login</button>
+                    </form>
+                </nav>
+                {% block info %}
+                {% endblock %}
+            </div>
+        </div>
+
+        <!-- Javascript -->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js" integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0" crossorigin="anonymous"></script>
+    </body>
+</html>
