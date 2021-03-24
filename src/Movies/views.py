@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from Movies.models import Movie, MovieGenre
 from Genres.models import Genre
+from Movies.models import MovieGenre
 
 # Create your views here.
 def home(request): 
