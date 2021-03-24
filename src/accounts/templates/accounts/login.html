@@ -32,7 +32,9 @@
                     <img class="img-responsive" src="{% static 'images\Logo.svg' %}"></a>
                 </nav>
                 <p class="text-center text-white">A movie search engine which makes recommendations based on the searches you make</p>
-                <a class="link-primary" href="www.google.com">Sign up</a><p class="text-center text-white"> or log in below:</p>
+                <div>
+                    <p class="text-center text-white"><a class="link-primary" href="www.google.com">Sign up</a> or log in below:</p>
+                </div>
                 <nav>
                     <form method="POST">{% csrf_token %}
                         {{form}}
