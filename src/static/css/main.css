@@ -8,7 +8,27 @@ div {
             transition: height .25s ease;
 }
 
-/* Search */
+/* width */
+::-webkit-scrollbar {
+    -webkit-appearance: none;
+    width: 10px;
+    margin-right: 4px;
+}
+ 
+/* Handle */
+::-webkit-scrollbar-thumb {
+    border-radius: 5px;
+    background-color: rgb(100,100,100, 0.4);
+    /* box-shadow: 1px 1px 10px rgb(255, 255, 255, 0.4); */
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+
+/* ----------------- Search ----------------- */
 .box {
     background-color: white;
     height: 50vh;
@@ -98,7 +118,6 @@ input[type=text]:focus {
     transform: rotate(180deg);
 }
   
-/*for the animation*/
 .dropdown-toggle:after {
     transition: 0.5s;
 }
@@ -153,4 +172,33 @@ input[type=text]:focus {
 
 .link-primary {
     color: red;
+}
+
+/* ----------------- Results ----------------- */
+#results_search {
+    background-image: url('/static/images/search_icon.svg');
+    background-position: 10px;
+    background-size: 20px;
+    background-repeat: no-repeat;
+    padding-left:45px;
+    border-radius: 10px 0px 0px 10px;
+    background-color: #EFEFEF;
+}
+
+#results_enter {
+    font-size: 12px;
+    background-image: url('/static/images/Enter.svg');
+    background-position: 55px 50%;
+    background-size: 15px;
+    padding: 0px 40px 0px 20px;
+    background-repeat: no-repeat;
+    border: none;
+    border-radius: 0px 10px 10px 0px;
+    background-color: #EFEFEF;
+    color: grey;
+}
+
+#results_search:focus {
+    box-shadow: none;
+    border: none;
 }
