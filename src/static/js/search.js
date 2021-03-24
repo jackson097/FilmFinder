@@ -7,19 +7,13 @@ function insertAfter(referenceNode, newNode) {
 }
 
 function getSearchHistory() {
-    const hr = document.createElement('hr');
-    const div = document.createElement('div');
-    hr.className = "px-0";
-    div.className = "subtitle";
-    div.style = "color:#747474 !important;"
-    div.innerHTML = "Recent Searches"
-
     if (recent_searches != "None") {
-        var line = document.getElementById("line");
-        line.appendChild(hr)
+        var hr = document.getElementById('line_element').style.display = "block";
 
         var subtitle = document.getElementById("subtitle");
-        subtitle.appendChild(div);
+        subtitle.innerHTML = "Recent Searches";
+        subtitle.style = "color:#747474 !important;"
+        subtitle.style.fontSize = "12px"
 
         var previous = document.getElementById("subtitle_row");
         var entries = recent_searches.split(",");
@@ -28,32 +22,153 @@ function getSearchHistory() {
         if (length > 4) {
             length = 4;
         } 
-        
-        if (length <= 2) {
+
+        if(length <= 1) {
+            document.getElementById("box").style.height = "60vh";
+        } else if (length == 2) {
             document.getElementById("box").style.height = "65vh";
-        } else {
+        } else if (length == 3) {
             document.getElementById("box").style.height = "70vh";
+        } else if (length == 4) {
+            document.getElementById("box").style.height = "75vh";
         }
         
         for (i = 0; i < length; i++) {
-            var entry_div = document.createElement('div');
-            var entry_col = document.createElement('div');
+            var entryDiv = document.createElement('div');
+            var entryCol = document.createElement('div');
             var link = document.createElement('a');
             
-            entry_div.className = "row";
-            entry_col.className = "col-12 select"
+            entryDiv.className = "row";
+            entryCol.className = "col-12 select"
             link.className = "entry"
 
             link.innerHTML = entries[i];
 
-            insertAfter(previous, entry_div);
-            entry_div.appendChild(entry_col);
-            entry_col.appendChild(link);
+            insertAfter(previous, entryDiv);
+            entryDiv.appendChild(entryCol);
+            entryCol.appendChild(link);
 
-            previous = entry_div;
+            previous = entryDiv;
         }
+        return true;
     }
+    return false;
 }
+
+function getTopResults(input, movies_list, genres) {
+    // Execute when someone is writing in text field
+    input.addEventListener("input", function(e) {
+ 
+        document.getElementById("line_element").style.display = "block";
+
+        num_results = 0;
+
+        val = this.value;
+        var subtitle = document.getElementById("subtitle");
+        var previous = document.getElementById("subtitle_row");
+
+        // Change/add subtitle
+        subtitle.innerHTML = "Top Results";
+        subtitle.style = "color:#747474 !important;"
+        subtitle.style.fontSize = "12px"
+
+        // Close any open lists
+        closeAllLists();
+
+        // Remove recent searches
+        removeRecentSearches();       
+
+
+        // Nothing typed
+        if (!val) {
+            return false;
+        }
+
+        i = 0;
+        while(i < movies_list.length && num_results < 4) {
+            if (movies_list[i].substr(0, val.length).toUpperCase() == val.toUpperCase()) {
+                num_results ++;
+
+                // Create link for each matching element
+                var div = document.createElement('div');
+                var entryDiv = document.createElement('a');
+                var entryCol1 = document.createElement('div');
+                var entryCol2 = document.createElement('div');
+                var genre = document.createElement('div');
+
+                div.className = "delete px-2";
+                entryDiv.id = "result";
+                entryDiv.className = "row select delete iterate";
+                entryCol1.className = "col-4 d-flex align-items-center delete";
+                entryCol2.className = "col-8 movie delete";
+                genre.className = "genre px-2 delete";
+            
+                genre.innerHTML = genres[i];
+
+                // Make matching letters bold
+                entryCol2.innerHTML = "<strong>" + movies_list[i].substr(0, val.length) + "</strong>";
+                entryCol2.innerHTML += movies_list[i].substr(val.length);
+                entryCol2.innerHTML += "<input type='hidden' value='" + movies_list[i] + "'>";
+
+                insertAfter(previous, div);
+                div.appendChild(entryDiv);
+                entryCol1.appendChild(genre);
+                entryDiv.appendChild(entryCol1);
+                entryDiv.appendChild(entryCol2);
+                
+                previous = div;
+            }
+
+            if (num_results <= 1) {
+                document.getElementById("box").style.height = "60vh";
+            } else if (num_results == 2) {
+                document.getElementById("box").style.height = "65vh";
+            } else if (num_results == 3) {
+                document.getElementById("box").style.height = "70vh";
+            } else if (num_results == 4) {
+                document.getElementById("box").style.height = "75vh";
+            }
+
+            i++;
+        }
+
+        input.addEventListener('input', function(e) {  
+            var val = this.value;
+    
+            if (val == "") {
+                if (document.getElementById("subtitle").innerHTML == "Top Results") {
+                    searchHistory = getSearchHistory();
+                }
+
+                if (!searchHistory) {
+                    document.getElementById("line_element").style.display = "none";
+                    subtitle.innerHTML = "";
+                    document.getElementById("box").style.height = "55vh";
+                }
+            }
+        });
+    });
+}
+
+function closeAllLists() {
+    $('.delete').remove();
+}
+
+function removeRecentSearches() {
+    $('.entry').parent().parent().remove();
+    $('.entry').parent().remove();
+    $('.entry').remove();
+}
+
+var movie_titles = []
+var genres = []
+
+for (i = 0; i < movies.length; i++) {
+    movie_titles.push(movies[i][1]);
+    genres.push(movies[i][2]);
+}
+
+getTopResults(document.getElementById("search_query"), movie_titles, genres)
 
 //------------- Don't need anymore, keeping just in case -------------
 // function startTime() {

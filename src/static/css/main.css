@@ -2,6 +2,12 @@ html, body {
     font-family: 'Roboto', sans-serif;
 }
 
+div {
+    -webkit-transition: height .25s ease;
+       -moz-transition: height .25s ease;
+            transition: height .25s ease;
+}
+
 /* Search */
 .box {
     background-color: white;
@@ -70,6 +76,10 @@ input[type=text]:focus {
     padding-left: 0 !important;
 }
 
+#subtitle {
+    color:#747474 !important;
+}
+
 .link {
     color: red;
     font-weight: bold;
@@ -107,4 +117,28 @@ input[type=text]:focus {
     background-color: #DEDEDE;
     border-radius: 5px;
 }
+
+.select:hover .genre {
+    background-color: red;
+}
+
+.genre {
+    background-color: #747474;
+    color: white;
+    border-radius: 5px;
+    font-size: 12px;
+    display:inline;
+}
+
+.movie {
+    color: #252525;
+}
+
+#result {
+    text-decoration: none;
+    cursor: pointer;
+
+}
+
+
 

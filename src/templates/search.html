@@ -13,7 +13,7 @@
         <!-- Search -->
         <div class="row pb-3">
             <!-- Search box -->
-            <div class="col-12 ">
+            <div class="col-12">
                 <div class="search_box py-3 px-4">
                     <form class="form" method="POST" action="">{% csrf_token %}
                         <div class="row">
@@ -42,13 +42,13 @@
                     <!-- Line -->
                     <div class="row">
                         <div id="line" class="col-12">
-                            <!-- <hr class="px-0"> -->
+                            <hr id="line_element" class="px-0" style="display: none; height: 0.5px;">
                         </div>
                     </div>
 
                     <!-- Subtitle -->
                     <div id="subtitle_row" class="row">
-                        <div id="subtitle" class="col-12">
+                        <div id="subtitle" class="col-12 pb-2">
                         </div>
                     </div>
                 </div>
@@ -66,7 +66,7 @@
         <!-- Recommended Movies -->
         <div class="row">
             {% for object in movies %}
-            <p class="lead">{{object.0.title}}</p>
+            <!-- <p class="lead">{{object.0.title}}</p> -->
             {%endfor%}
         </div>
     </div>
