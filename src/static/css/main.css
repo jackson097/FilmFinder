@@ -93,3 +93,18 @@ input[type=text]:focus {
     transition: 0.5s;
 }
 
+.entry {
+    text-decoration: none;
+    cursor: pointer;
+    color: red;
+}
+
+.entry:hover {
+    color: darkred;
+}
+
+.select:hover {
+    background-color: #DEDEDE;
+    border-radius: 5px;
+}
+

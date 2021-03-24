@@ -52,6 +52,7 @@ class User(AbstractBaseUser):
     admin       = models.BooleanField(default=False)
     staff       = models.BooleanField(default=False)
     related     = models.CharField(max_length=255, blank=True, null=True)
+    recent_searches      = models.CharField(max_length=255, blank=True, null=True)
 
     USERNAME_FIELD  = 'email'
     REQUIRED_FIELDS = []
@@ -75,6 +76,8 @@ class User(AbstractBaseUser):
     def has_module_perms(self, app_label):
         return True
 
+    def get_recent_searches(self):
+        return self.recent_searches
 
     @property
     def is_admin(self):

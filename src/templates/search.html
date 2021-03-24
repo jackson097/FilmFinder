@@ -1,6 +1,11 @@
 {% extends 'base.html' %}
 {% load static %}
 {% block info %}
+
+<script>
+    var recent_searches = "{{ request.user.get_recent_searches }}"
+</script>
+
 <div class="row align-items-center flex-grow-1 pb-5">
     <div class="col-3"></div>
     <!-- Main box -->
@@ -20,14 +25,30 @@
                             </div>
                         </div>
                     </form>
-                    <hr class="px-0">
+
+                    <script>
+                        var movies = []
+                    </script>
+                    {% for movie in movies %}
+                    <script>
+                        movies.push([
+                            "{{ movie.0 }}",
+                            "{{ movie.0.title }}",
+                            "{{ movie.1 }}"
+                        ])
+                    </script>
+                    {% endfor %}
+
+                    <!-- Line -->
                     <div class="row">
-                        <div class="col-12">
-                            <!-- <div class="subtitle" style="color:#747474 !important;">Recent searches</div> -->
-                            {% for movie in movies %}
-                            {{ movie.0.title }}
-                            {{ movie.1 }}
-                            {% endfor %}
+                        <div id="line" class="col-12">
+                            <!-- <hr class="px-0"> -->
+                        </div>
+                    </div>
+
+                    <!-- Subtitle -->
+                    <div id="subtitle_row" class="row">
+                        <div id="subtitle" class="col-12">
                         </div>
                     </div>
                 </div>
@@ -53,5 +74,7 @@
         
     </div>
 </div>
+
+
 
 {% endblock %}
