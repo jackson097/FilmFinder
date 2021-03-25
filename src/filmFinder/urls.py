@@ -18,7 +18,7 @@ from django.urls import path
 from django.conf.urls import url
 from django.contrib.auth.views import LogoutView
 
-from .views import home_page, results_page, recommendations_page, account_page
+from .views import home_page, results_page, top_movies_page, account_page, movie_page
 from accounts.views import login_page, register_page
 
 urlpatterns = [
@@ -28,6 +28,7 @@ urlpatterns = [
     path('register/', register_page),
     path('logout/', LogoutView.as_view(), name="logout"),
     path('results/', results_page, name="result"),
-    path('recommendations/', recommendations_page, name="recommendations"),
+    path('topmovies/', top_movies_page, name="topmovies"),
     path('account/', account_page, name="account"),
+    url(r'^movie/(?P<movie_id>\d+)/$', movie_page, name="movie")
 ]

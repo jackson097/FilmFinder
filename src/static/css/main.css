@@ -153,10 +153,9 @@ input[type=text]:focus {
     color: #252525;
 }
 
-#result {
+.top_result {
     text-decoration: none;
     cursor: pointer;
-
 }
 
 /*----------------- Login -----------------*/
