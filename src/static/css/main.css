@@ -140,17 +140,26 @@ input[type=text]:focus {
 
 }
 
+/* Login */
 .btn {
     color: white;
     background-color: red;
+    width: 75vh;
 }
 
 .img-responsive {
     display: block;
-    width: 375px;
+    width: 65vh;
     height: auto;
 }
 
 .link-primary {
     color: red;
+}
+
+.login_box {
+    background-color: #EEE;
+    height: 30vh;
+    width: 75vh;
+    border-radius: 15px;
 }
