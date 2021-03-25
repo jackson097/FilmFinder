@@ -1,11 +1,17 @@
 {% extends 'base.html' %}
 {% load static %}
 {% block searchbar %}
+<form class="form-inline mx-auto input-group">
+    <input class="form-control mx-0 py-2" id="results_search" type="text" name="search" placeholder="Search by title, actor or genre" autocomplete="off">
+    <div class="input-group-append">
+        <button class="btn w-auto h-100" id="results_enter" type="submit">Enter</button>
 
-
-
+    </div>
+  </form>
 {% endblock %}
 
-
 {% block info %}
+<div class="row">
+    <div class="col-12"></div>
+</div>
 {% endblock %}
