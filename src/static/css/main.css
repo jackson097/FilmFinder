@@ -163,7 +163,7 @@ input[type=text]:focus {
 .btn {
     color: white;
     background-color: red;
-    width: 75vh;
+    width: 85vh;
 }
 
 .img-responsive {
@@ -177,11 +177,12 @@ input[type=text]:focus {
 }
 
 .login_box {
-    background-color: #EEE;
-    height: 30vh;
-    width: 75vh;
+    background-color: firebrick;
+    height: 40vh;
+    width: 85vh;
     border-radius: 15px;
 }
+
 
 /* ----------------- Results ----------------- */
 
