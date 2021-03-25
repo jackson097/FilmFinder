@@ -34,4 +34,9 @@ def home_page(request):
 
 def results_page(request):
     return render(request, "results.html", {})
+
+def recommendations_page(request):
+    return render(request, "recommendations.html", {})
  
+def account_page(request):
+    return render(request, "account.html", {})

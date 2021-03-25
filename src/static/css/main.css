@@ -159,12 +159,12 @@ input[type=text]:focus {
 
 }
 
-/* Login */
-.btn {
+/*----------------- Login -----------------*/
+/* .btn {
     color: white;
     background-color: red;
     width: 75vh;
-}
+} */
 
 .img-responsive {
     display: block;
@@ -211,4 +211,21 @@ input[type=text]:focus {
 #results_search:focus {
     box-shadow: none;
     border: none;
+}
+
+.title {
+    font-size: 20px;
+    font-weight:500;
+}
+
+#title1 {
+    color: white;
+}
+
+#title2 {
+    color: red;
+}
+
+#title3 {
+    color: #747474;
 }
