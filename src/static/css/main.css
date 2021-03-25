@@ -159,11 +159,11 @@ input[type=text]:focus {
 }
 
 /*----------------- Login -----------------*/
-/* .btn {
+.btn {
     color: white;
     background-color: red;
     width: 75vh;
-} */
+}
 
 .img-responsive {
     display: block;
