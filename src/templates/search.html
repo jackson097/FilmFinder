@@ -15,7 +15,7 @@
             <!-- Search box -->
             <div class="col-12">
                 <div class="search_box py-3 px-4">
-                    <form class="form" method="POST" action="">{% csrf_token %}
+                    <form class="form" method="GET" action="{% url 'result' %}">
                         <div class="row">
                             <div class="col-9">
                                 <input id="search_query" type="text" name="search" placeholder="Search by title, actor or genre" autocomplete="off">
@@ -32,7 +32,7 @@
                     {% for movie in movies %}
                     <script>
                         movies.push([
-                            "{{ movie.0 }}",
+                            "{{ movie.0.movie_id }}",
                             "{{ movie.0.title }}",
                             "{{ movie.1 }}"
                         ])
@@ -57,10 +57,10 @@
         <!-- Recommendations Title -->
         <div class="row ">
             <div class="col-10">
-                <div class="subtitle">Recommended for you...</div>
+                <div class="subtitle">Top movies</div>
             </div>
             <div class="col-2">
-                <a class="link" href="#">See all</a>
+                <a class="link" href="{% url 'topmovies' %}">See all</a>
             </div>
         </div>
         <!-- Recommended Movies -->
@@ -69,7 +69,6 @@
             <div class="col-3 lead">
                 {{object.0.title}}
             </div>
-            <!-- <p class="lead">{{object.0.title}}</p> -->
             {%endfor%}
         </div>
     </div>

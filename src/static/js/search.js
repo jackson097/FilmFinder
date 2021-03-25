@@ -1,6 +1,6 @@
 // Variables from template
 // recent_searches (list of recent searches for user, comma separated)
-// movies (list of (movie object, movie, genre) pairs)
+// movies (list of (movie id, movie, genre) pairs)
 
 function insertAfter(referenceNode, newNode) {
     referenceNode.parentNode.insertBefore(newNode, referenceNode.nextSibling);
@@ -41,6 +41,7 @@ function getSearchHistory() {
             entryDiv.className = "row";
             entryCol.className = "col-12 select"
             link.className = "entry"
+            link.id = "entry" + i
 
             link.innerHTML = entries[i];
 
@@ -49,7 +50,13 @@ function getSearchHistory() {
             entryCol.appendChild(link);
 
             previous = entryDiv;
+
+            document.getElementById("entry" + i).addEventListener("click", function() {
+                document.getElementById("search_query").value = this.innerHTML;
+                document.getElementById("enter").click();
+            });
         }
+
         return true;
     }
     return false;
@@ -58,7 +65,6 @@ function getSearchHistory() {
 function getTopResults(input, movies_list, genres) {
     // Execute when someone is writing in text field
     input.addEventListener("input", function(e) {
- 
         document.getElementById("line_element").style.display = "block";
 
         num_results = 0;
@@ -86,19 +92,20 @@ function getTopResults(input, movies_list, genres) {
 
         i = 0;
         while(i < movies_list.length && num_results < 4) {
-            if (movies_list[i].substr(0, val.length).toUpperCase() == val.toUpperCase()) {
+            if (movies_list[i][1].substr(0, val.length).toUpperCase() == val.toUpperCase()) {
                 num_results ++;
 
                 // Create link for each matching element
                 var div = document.createElement('div');
-                var entryDiv = document.createElement('a');
+                var entryDiv = document.createElement('div');
                 var entryCol1 = document.createElement('div');
                 var entryCol2 = document.createElement('div');
                 var genre = document.createElement('div');
+                var url = "{% url 'movie' %}";
 
                 div.className = "delete px-2";
-                entryDiv.id = "result";
-                entryDiv.className = "row select delete iterate";
+                entryDiv.id = movies_list[i][0];
+                entryDiv.className = "row select delete iterate top_result";
                 entryCol1.className = "col-4 d-flex align-items-center delete";
                 entryCol2.className = "col-8 movie delete";
                 genre.className = "genre px-2 delete";
@@ -106,9 +113,9 @@ function getTopResults(input, movies_list, genres) {
                 genre.innerHTML = genres[i];
 
                 // Make matching letters bold
-                entryCol2.innerHTML = "<strong>" + movies_list[i].substr(0, val.length) + "</strong>";
-                entryCol2.innerHTML += movies_list[i].substr(val.length);
-                entryCol2.innerHTML += "<input type='hidden' value='" + movies_list[i] + "'>";
+                entryCol2.innerHTML = "<strong>" + movies_list[i][1].substr(0, val.length) + "</strong>";
+                entryCol2.innerHTML += movies_list[i][1].substr(val.length);
+                entryCol2.innerHTML += "<input type='hidden' value='" + movies_list[i][0] + "'>";
 
                 insertAfter(previous, div);
                 div.appendChild(entryDiv);
@@ -117,6 +124,12 @@ function getTopResults(input, movies_list, genres) {
                 entryDiv.appendChild(entryCol2);
                 
                 previous = div;
+
+                entryDiv.addEventListener("click", function(){
+                    var id = entryDiv.id;
+
+                    document.location.href = "movie/" + id;
+                });
             }
 
             if (num_results <= 1) {
@@ -164,7 +177,7 @@ var movie_titles = []
 var genres = []
 
 for (i = 0; i < movies.length; i++) {
-    movie_titles.push(movies[i][1]);
+    movie_titles.push([movies[i][0], movies[i][1]]);
     genres.push(movies[i][2]);
 }
 

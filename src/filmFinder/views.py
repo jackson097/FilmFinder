@@ -1,3 +1,7 @@
+# TODO: Get top movies function and pass to search page and top movies page
+# TODO: Make login/register first page NOT search page
+# TODO: Pass movie results to results page (are we going to search just through titles? Genres?)
+
 from django.contrib.auth import authenticate, login
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
@@ -22,16 +26,55 @@ def home_page(request):
 
         movie_genre_list.append([movie, genre]) # Format: [Movie Object, string]
     
+    # Get top movies
+
     context = {
         "title":"Film Finder",
         "movies": movie_genre_list
+        # Top movies var
     }
-    if request.method == "POST":
-        #pass thru info here
-        return redirect("result")
     
     return render(request, "search.html", context)
 
 def results_page(request):
-    return render(request, "results.html", {})
+    search_query = request.GET.urlencode().split("=",1)[1]
+
+    context = {
+        "title":"Search results for " + search_query,
+        "search_query":search_query,
+        # Movie results
+    }
+
+    # Find movies
+
+
+    return render(request, "results.html", context)
+
+def top_movies_page(request):
+
+    # Get top movies
+
+    context = {
+        "title": "Top Movies",
+        # Top Movies
+    }
+
+    return render(request, "topmovies.html", context)
  
+def account_page(request):
+    context = {
+        "title": "My Account",
+    }
+
+    return render(request, "account.html", context)
+
+def movie_page(request, movie_id):
+    movies = Movie.objects.all() 
+    movie = movies.get(movie_id=movie_id)
+
+    context = {
+        "title": movie.title,
+        "movie": movie,
+    }
+
+    return render(request, "movie.html", context)

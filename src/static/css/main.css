@@ -153,13 +153,12 @@ input[type=text]:focus {
     color: #252525;
 }
 
-#result {
+.top_result {
     text-decoration: none;
     cursor: pointer;
-
 }
 
-/* Login */
+/*----------------- Login -----------------*/
 .btn {
     color: white;
     background-color: red;
@@ -212,4 +211,21 @@ input[type=text]:focus {
 #results_search:focus {
     box-shadow: none;
     border: none;
+}
+
+.title {
+    font-size: 20px;
+    font-weight:500;
+}
+
+#title1 {
+    color: white;
+}
+
+#title2 {
+    color: red;
+}
+
+#title3 {
+    color: #747474;
 }
