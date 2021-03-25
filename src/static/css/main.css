@@ -176,14 +176,15 @@ input[type=text]:focus {
     color: red;
 }
 
-<<<<<<< HEAD
 .login_box {
     background-color: #EEE;
     height: 30vh;
     width: 75vh;
     border-radius: 15px;
-=======
+}
+
 /* ----------------- Results ----------------- */
+
 #results_search {
     background-image: url('/static/images/search_icon.svg');
     background-position: 10px;
@@ -210,5 +211,4 @@ input[type=text]:focus {
 #results_search:focus {
     box-shadow: none;
     border: none;
->>>>>>> cebdb670c60e1e3022a38acf4ced668cba2c969c
 }
