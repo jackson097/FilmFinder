@@ -176,7 +176,7 @@ input[type=text]:focus {
 }
 
 .login_box {
-    background-color: firebrick;
+    background-color: #FFF;
     height: 40vh;
     width: 85vh;
     border-radius: 15px;
