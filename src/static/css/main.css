@@ -185,11 +185,6 @@ input[type=text]:focus {
     border-radius: 15px 15px 0px 0px;
 }
 
-.login-background {
-    background-image: url('../../../static/images/Background.jpg');
-    background-size: cover;
-}
-
 .login-button {
     color: white;
     background-color: red;
@@ -210,6 +205,22 @@ input[type=text]:focus {
 .form-control {
     width: 75vh;
 }
+
+/* ----------------- Results ----------------- */
+.register_field {
+    width: 75vh;
+}
+
+.register_field:focus {
+    border-color: rgba(255, 0, 0, 0.8);
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset, 0 0 8px rgba(255, 0, 0, 0.6);
+}
+
+.register {
+    border-radius: 15px 15px 0px 0px;
+}
+
+
 
 /* ----------------- Results ----------------- */
 

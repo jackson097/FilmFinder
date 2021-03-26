@@ -25,7 +25,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', home_page, name="index"),
     url(r'^login/$', login_page, name='login'),
-    path('register/', register_page),
+    path('register/', register_page, name='register'),
     path('logout/', LogoutView.as_view(), name="logout"),
     path('results/', results_page, name="result"),
     path('topmovies/', top_movies_page, name="topmovies"),
