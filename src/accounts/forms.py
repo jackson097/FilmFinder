@@ -4,8 +4,12 @@ from django.contrib.auth import get_user_model
 User = get_user_model()
 
 class LoginForm(forms.Form):
-    username = forms.CharField()
-    password = forms.CharField(widget=forms.PasswordInput)
+    username = forms.EmailField(label="Email", widget=forms.TextInput(attrs={"class": 'form-control', 'style': 'width:250px'}))
+    password = forms.CharField(widget=forms.PasswordInput(attrs={"class": 'form-control', 'style': 'width:250px'}))
+
+    class Meta:
+        model = User
+        fields = ('email', 'password')
 
 class RegisterForm(forms.Form):
     username    = forms.CharField()
@@ -24,7 +28,7 @@ class RegisterForm(forms.Form):
         email = self.cleaned_data.get("email")
         qs = User.objects.filter(email=email)
         if qs.exists():
-            raise forms.ValidationError("email is taken")
+            raise forms.ValidationError("Email is taken")
         return email
     
     def clean(self):
@@ -32,5 +36,5 @@ class RegisterForm(forms.Form):
         password = self.cleaned_data.get("password")
         password2 = self.cleaned_data.get("password2")
         if password != password2:
-            raise forms.ValidationError("passwords must match")
+            raise forms.ValidationError("Passwords must match")
         return data

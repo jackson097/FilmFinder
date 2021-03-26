@@ -25,23 +25,60 @@
         <link rel="stylesheet" type="text/css" href="{% static 'css/main.css' %}">
         
     </head>
-    <body>
-        <div id="login">
-            <div style="background-image: url('../../../static/images/Background.jpg');" class="container-fluid text-center bg-dark pt-3 px-4 min-vh-100 d-flex flex-column row justify-content-center align-items-center">
-                <nav class="navbar navbar-expand-lg navbar-dark bg-transparent row justify-content-center align-items-center">
+    <body class="bg-dark">
+        <div style="background-image: url('../../../static/images/Background.jpg');" class="container-fluid text-center pt-3 min-vh-100 d-flex flex-column justify-content-center align-items-center login-background">
+            <!-- Logo -->
+            <div class="row d-flex justify-content-center align-items-center">
+                <div class="col-12 d-flex justify-content-center">
                     <img class="img-responsive" src="{% static 'images\Logo.svg' %}"></a>
-                </nav>
-                <p class="text-center text-white">A movie search engine which makes recommendations based on the searches you make</p>
-                <div>
-                    <p class="text-center text-white"><a class="link-primary" href="../register">Sign up</a> or log in below:</p>
                 </div>
-                <div id="box" class="login_box col-6 p-4">
-                    <form id="login-form" class="form" method="POST">{% csrf_token %}
-                        <p><p class="col-8 text-truncate" id="user_pass">Username:</p>{{ form.username }}</p>
-                        <p><p class="col-8 text-truncate" id="user_pass">Password:</p>{{ form.password }}</p>
+            </div>
+            <!-- Description -->
+            <div class ="row">
+                <div class="col-12">
+                    <p class="text-center text-white">A movie search engine which makes recommendations based on the searches you make</p>
+                </div>
+            </div>
+            <!-- Sign up/login text -->
+            <div class = "row">
+                <div class="col-12">
+                    <p class="text-center text-white mb-0"><a class="link-primary" href="../register">Sign up</a> or log in below:</p>
+                </div>
+            </div>
+            <!-- Login box -->
+            <div id="box" class=" row p-4">
+                <div class="col-12">
+                    <form id="login-form" class="form" method="POST" action="{% url 'login' %}">{% csrf_token %}      
+                        <!-- Username -->
+                        <div class="validate-input form-floating py-0" data-validate="Username is required">
+                            <input type="email" class="form-control login_field login" id="{{ form.username.id_for_label }}" name="{{ form.username.html_name }}" placeholder="name@example.com" required>
+                            <label for="floatingInput">Email</label>
+                        </div>
+
+                        <!-- Password -->
+                        <div class="validate-input form-floating py-0" data-validate="Password is required">
+                            <input type="password" class="form-control login_field pass" id="{{ form.password.id_for_label }}" name="{{ form.password.html_name }}" placeholder="Password" required>
+                            <label for="floatingPassword">Password</label>
+                        </div>
+
+                        <!-- Error messages -->
+                        <div class=row>
+                            <div class="col-12" style="color: red;">
+                                {% if messages %}
+                                    {% for message in messages%}
+                                        {{ message }}
+                                    {% endfor %}
+                                {% endif %}
+                            </div>
+                        </div>
                     </form>
                 </div>
-                <br><button type="submit" class="btn btn-default" form="login-form">Login</button> 
+            </div>
+            <!-- Login button -->
+            <div class="row">
+                <div class="col-12 d-flex align-top">
+                    <br><button type="submit" class="btn btn-default login-button" form="login-form">Login</button> 
+                </div>
             </div>
         </div>
 
