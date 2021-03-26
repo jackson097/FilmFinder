@@ -159,15 +159,33 @@ input[type=text]:focus {
 }
 
 /*----------------- Login -----------------*/
+.login_field {
+    width: 75vh;
+}
+
+.login_field:focus {
+    border-color: rgba(255, 0, 0, 0.8);
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset, 0 0 8px rgba(255, 0, 0, 0.6);
+}
+
+.pass {
+    border-radius: 0px 0px 15px 15px;
+}
+
+.login {
+    border-radius: 15px 15px 0px 0px;
+}
+
 .login-background {
     background-image: url('../../../static/images/Background.jpg');
     background-size: cover;
 }
 
-.btn {
+.login-button {
     color: white;
     background-color: red;
-    width: 85vh;
+    width: 75vh;
+    border-radius: 10px;
 }
 
 .img-responsive {
