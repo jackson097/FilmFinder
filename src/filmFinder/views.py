@@ -8,12 +8,14 @@ from django.shortcuts import render, redirect
 
 from Movies.models import Movie, MovieGenre
 from Genres.models import Genre
+from accounts.forms import LoginForm
 
 def home_page(request):
     movies = Movie.objects.all() 
     genres = Genre.objects.all()
     movies_genres = MovieGenre.objects.all()
     movie_genre_list = []
+    form = LoginForm()
 
     for movie in movies:
         # Takes first genre for a given movie (movies can have more than one genre)
@@ -30,11 +32,14 @@ def home_page(request):
 
     context = {
         "title":"Film Finder",
-        "movies": movie_genre_list
+        "movies": movie_genre_list,
         # Top movies var
     }
     
-    return render(request, "search.html", context)
+    if request.user.is_authenticated:
+        return render(request, "search.html", context)
+    
+    return redirect("login")
 
 def results_page(request):
     search_query = request.GET.urlencode().split("=",1)[1]
