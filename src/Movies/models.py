@@ -12,11 +12,7 @@ def upload_image_path(instance, filename):
 class Movie(models.Model):
     movie_id    = models.AutoField(primary_key=True)
     title       = models.CharField(max_length=120, blank=True, null=True)
-<<<<<<< HEAD
     image       = models.CharField(max_length=120, blank=True, null=True)
-=======
-    image       = models.ImageField(upload_to=upload_image_path, null=True, blank=True)
->>>>>>> 25942e7643317b3189995f94ca616c428f7e0b60
     overview    = models.TextField(blank=True)
     description = models.TextField(blank=True)
 
