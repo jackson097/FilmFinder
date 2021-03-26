@@ -9,11 +9,14 @@ from django.shortcuts import render, redirect
 from Movies.models import Movie, MovieGenre
 from Genres.models import Genre
 from accounts.forms import LoginForm
+from Reception.models import Reception
 
 def home_page(request):
     movies = Movie.objects.all() 
     genres = Genre.objects.all()
     movies_genres = MovieGenre.objects.all()
+    reception = Reception.objects.all()
+
     movie_genre_list = []
     form = LoginForm()
 
@@ -29,11 +32,16 @@ def home_page(request):
         movie_genre_list.append([movie, genre]) # Format: [Movie Object, string]
     
     # Get top movies
+    top_movie_ids = reception.order_by('-avgRatings', '-numRatings')[:4]
+    top_movies = []
 
+    for movie in top_movie_ids:
+        top_movies.append(movies.get(movie_id=movie.movie_id.movie_id))
+    
     context = {
         "title":"Film Finder",
         "movies": movie_genre_list,
-        # Top movies var
+        "top_movies": top_movies,
     }
     
     if request.user.is_authenticated:
