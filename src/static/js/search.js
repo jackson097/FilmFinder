@@ -10,6 +10,7 @@ function getSearchHistory() {
     if (recent_searches != "None") {
         var hr = document.getElementById('line_element').style.display = "block";
 
+        // Subtitle
         var subtitle = document.getElementById("subtitle");
         subtitle.innerHTML = "Recent Searches";
         subtitle.style = "color:#747474 !important;"
@@ -23,6 +24,7 @@ function getSearchHistory() {
             length = 4;
         } 
 
+        // Sizing
         if(length <= 1) {
             document.getElementById("box").style.height = "60vh";
         } else if (length == 2) {

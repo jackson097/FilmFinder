@@ -5,6 +5,7 @@
 from django.contrib.auth import authenticate, login
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
+import urllib.parse
 
 from Movies.models import Movie, MovieGenre
 from Genres.models import Genre
@@ -50,7 +51,12 @@ def home_page(request):
     return redirect("login")
 
 def results_page(request):
-    search_query = request.GET.urlencode().split("=",1)[1]
+    search_query = urllib.parse.unquote(request.GET.urlencode().split("=",1)[1])
+    search_query = search_query.replace("+", " ")
+
+    # Update recent searches
+    request.user.recent_searches = search_query + "," + request.user.recent_searches
+    request.user.save()
 
     context = {
         "title":"Search results for " + search_query,
