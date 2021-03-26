@@ -207,11 +207,8 @@ input[type=text]:focus {
     color: red;
 }
 
-.login_box {
-    background-color: #FFF;
-    height: 40vh;
-    width: 85vh;
-    border-radius: 15px;
+.form-control {
+    width: 75vh;
 }
 
 /* ----------------- Results ----------------- */
