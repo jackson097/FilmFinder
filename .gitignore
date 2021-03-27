@@ -1,3 +1,6 @@
 .env
 src/data
 pyvenv.cfg
+src/movie_url.csv
+src/db.sqlite3
+src/movie_poster.csv
