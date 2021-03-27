@@ -59,8 +59,9 @@ def results_page(request):
     search_query = search_query.replace("+", " ")
 
     # Update recent searches
-    request.user.recent_searches = search_query + "," + request.user.recent_searches
-    request.user.save()
+    if (search_query.isspace() == False and search_query != ""):
+        request.user.recent_searches = search_query + "," + request.user.recent_searches
+        request.user.save()
 
     context = {
         "title":"Search results for " + search_query,
