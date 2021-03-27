@@ -13,7 +13,9 @@ class Movie(models.Model):
     movie_id    = models.AutoField(primary_key=True)
     temp_id     = models.CharField(max_length=120, blank=True, null=True)
     title       = models.CharField(max_length=120, blank=True, null=True)
-    image       = models.CharField(max_length=120, blank=True, null=True)
+    image       = models.CharField(max_length=220, blank=True, null=True)
+    backdrop    = models.CharField(max_length=220, blank=True, null=True)
+    trailer     = models.CharField(max_length=220, blank=True, null=True)
     overview    = models.TextField(blank=True)
 
     def __str__(self):
