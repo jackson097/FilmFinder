@@ -108,7 +108,7 @@ function getTopResults(input, movies_list, genres) {
                 entryDiv.id = movies_list[i][0];
                 entryDiv.className = "row select delete iterate top_result";
                 entryCol1.className = "col-4 d-flex align-items-center delete";
-                entryCol2.className = "col-8 movie delete";
+                entryCol2.className = "col-8 movie delete ps-0";
                 genre.className = "genre px-2 delete";
                 entryDiv.href = "movie/" + entryDiv.id;
             
