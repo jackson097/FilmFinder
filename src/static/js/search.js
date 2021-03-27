@@ -84,15 +84,15 @@ function getTopResults(input, movies_list, genres) {
         subtitle.innerHTML = "Top Results";
         subtitle.style = "color:#747474 !important;"
         subtitle.style.fontSize = "12px"
-        subtitle.classList.add("pb-2");
 
         // Close any open lists
         closeAllLists();
 
         // Remove recent searches
-        removeRecentSearches();       
-
-
+        removeRecentSearches();    
+        
+        subtitle.classList.add("pb-2");
+       
         // Nothing typed
         if (!val) {
             return false;
@@ -132,7 +132,7 @@ function getTopResults(input, movies_list, genres) {
                 entryDiv.appendChild(entryCol2);
                 
                 previous = div;
-            }
+            } 
 
             if (num_results <= 1) {
                 document.getElementById("box").style.height = "60vh";
@@ -159,6 +159,7 @@ function getTopResults(input, movies_list, genres) {
                     document.getElementById("line_element").style.display = "none";
                     subtitle.innerHTML = "";
                     document.getElementById("box").style.height = "55vh";
+                    subtitle.classList.remove("pb-2");
                 }
             }
         });
@@ -170,9 +171,11 @@ function closeAllLists() {
 }
 
 function removeRecentSearches() {
+    var subtitle = document.getElementById('subtitle')
     $('.entry').parent().parent().remove();
     $('.entry').parent().remove();
     $('.entry').remove();
+    subtitle.classList.remove("pb-2");
 }
 
 var movie_titles = []
