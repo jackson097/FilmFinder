@@ -78,10 +78,18 @@ def results_page(request):
 
 def top_movies_page(request):
 
-    # Get top movies
+    reception = Reception.objects.all()
+    movies = MovieGenre.objects.all()
+
+    top_movie_ids = reception.filter(avgRatings__gte=1).order_by('-avgRatings', '-numRatings')
+    top_movies = []
+
+    for movie in top_movie_ids:
+        top_movies.append(movie)
 
     context = {
         "title": "Top Movies",
+        "top_movies": top_movies
         # Top Movies
     }
 
