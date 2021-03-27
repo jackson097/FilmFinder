@@ -14,7 +14,10 @@ function getSearchHistory() {
         var subtitle = document.getElementById("subtitle");
         subtitle.innerHTML = "Recent Searches";
         subtitle.style = "color:#747474 !important;"
-        subtitle.style.fontSize = "12px"
+        subtitle.style.fontSize = "12px";
+
+        var clearButton = document.getElementById("clear_button");
+        clearButton.style = "display: block;";
 
         var previous = document.getElementById("subtitle_row");
         var entries = recent_searches.split(",");
