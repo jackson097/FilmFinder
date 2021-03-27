@@ -73,13 +73,14 @@
             </div>
         </div>
         <!-- Recommended Movies -->
-        <div class="row">
+        <div class="row justify-content-center">
             {% for movie in top_movies %}
             <div class="col-3 lead">
-                <div class="top_movie" id='{{ movie.movie_id }}'>
+                <div class="top_movie card mx-auto" id='{{ movie.movie_id }}' style="width: 100px;">
                     <a class="top_movie" href="{% url 'movie' movie.movie_id %}">
                     <!-- Movie poster (Movie title for now) -->
-                    {{movie.title}}
+                    <!-- {{movie.title}} -->
+                    <img src="{{movie.image}}" style="width:150px; height:auto" class="card-img-top">
                     </a>
                 </div>
             </div>

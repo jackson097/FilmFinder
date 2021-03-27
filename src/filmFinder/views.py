@@ -135,7 +135,7 @@ def movie_page(request, movie_id):
     movie_person = movies_people.filter(movie_id=movie.movie_id)
 
     for person in movie_person:
-        cast.append(people.get(person_id=movie_person.person_id.person_id).name)
+        cast.append(person.person_id.name)
 
     context = {
         "title": movie.title,
