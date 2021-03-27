@@ -47,14 +47,17 @@
                     </div>
 
                     <!-- Subtitle -->
-                    <div id="subtitle_row" class="row pb-2">
-                        <div id="subtitle" class="col-6">
+                    <div id="subtitle_row" class="row">
+                        <div id="subtitle" class="col-6 ">
                         </div>
                         <!-- Clear recent search button -->
                         <div class="col-6 d-flex justify-content-end">
-                            <button id="clear_button">
-                                Clear all
-                            </button>
+                            <form action="{% url 'index' %}" method='POST'> 
+                                {% csrf_token %}
+                                <button id="clear_button" type="submit">
+                                    Clear all
+                                </button>
+                            </form>
                         </div>
                     </div>
                 </div>

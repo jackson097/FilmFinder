@@ -7,14 +7,16 @@ function insertAfter(referenceNode, newNode) {
 }
 
 function getSearchHistory() {
-    if (recent_searches != "None") {
-        var hr = document.getElementById('line_element').style.display = "block";
+    console.log(recent_searches);
+    if (recent_searches != "None" && recent_searches != "") {
+        document.getElementById('line_element').style.display = "block";
 
         // Subtitle
         var subtitle = document.getElementById("subtitle");
         subtitle.innerHTML = "Recent Searches";
         subtitle.style = "color:#747474 !important;"
         subtitle.style.fontSize = "12px";
+        subtitle.classList.add("pb-2");
 
         var clearButton = document.getElementById("clear_button");
         clearButton.style = "display: block;";
@@ -63,7 +65,7 @@ function getSearchHistory() {
         }
 
         return true;
-    }
+    } 
     return false;
 }
 

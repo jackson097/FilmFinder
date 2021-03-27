@@ -45,6 +45,10 @@ def home_page(request):
         "top_movies": top_movies,
     }
 
+    if request.method == 'POST':
+        request.user.recent_searches = ""
+        request.user.save()
+
     if request.user.is_authenticated:
         return render(request, "search.html", context)
     
