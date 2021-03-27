@@ -84,6 +84,7 @@ function getTopResults(input, movies_list, genres) {
         subtitle.innerHTML = "Top Results";
         subtitle.style = "color:#747474 !important;"
         subtitle.style.fontSize = "12px"
+        subtitle.classList.add("pb-2");
 
         // Close any open lists
         closeAllLists();
