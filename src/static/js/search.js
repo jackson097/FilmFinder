@@ -29,16 +29,16 @@ function getSearchHistory() {
             length = 4;
         } 
 
-        // Sizing
-        if(length <= 1) {
-            document.getElementById("box").style.height = "60vh";
-        } else if (length == 2) {
-            document.getElementById("box").style.height = "65vh";
-        } else if (length == 3) {
-            document.getElementById("box").style.height = "70vh";
-        } else if (length == 4) {
-            document.getElementById("box").style.height = "75vh";
-        }
+        // // Sizing
+        // if(length <= 1) {
+        //     document.getElementById("box").style.height = "60vh";
+        // } else if (length == 2) {
+        //     document.getElementById("box").style.height = "65vh";
+        // } else if (length == 3) {
+        //     document.getElementById("box").style.height = "70vh";
+        // } else if (length == 4) {
+        //     document.getElementById("box").style.height = "75vh";
+        // }
         
         for (i = 0; i < length; i++) {
             var entryDiv = document.createElement('div');
@@ -134,15 +134,15 @@ function getTopResults(input, movies_list, genres) {
                 previous = div;
             } 
 
-            if (num_results <= 1) {
-                document.getElementById("box").style.height = "60vh";
-            } else if (num_results == 2) {
-                document.getElementById("box").style.height = "65vh";
-            } else if (num_results == 3) {
-                document.getElementById("box").style.height = "70vh";
-            } else if (num_results == 4) {
-                document.getElementById("box").style.height = "75vh";
-            }
+            // if (num_results <= 1) {
+            //     document.getElementById("box").style.height = "60vh";
+            // } else if (num_results == 2) {
+            //     document.getElementById("box").style.height = "65vh";
+            // } else if (num_results == 3) {
+            //     document.getElementById("box").style.height = "70vh";
+            // } else if (num_results == 4) {
+            //     document.getElementById("box").style.height = "75vh";
+            // }
 
             i++;
         }
@@ -158,7 +158,7 @@ function getTopResults(input, movies_list, genres) {
                 if (!searchHistory) {
                     document.getElementById("line_element").style.display = "none";
                     subtitle.innerHTML = "";
-                    document.getElementById("box").style.height = "55vh";
+                    // document.getElementById("box").style.height = "55vh";
                     subtitle.classList.remove("pb-2");
                 }
             }
