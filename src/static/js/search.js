@@ -99,11 +99,10 @@ function getTopResults(input, movies_list, genres) {
 
                 // Create link for each matching element
                 var div = document.createElement('div');
-                var entryDiv = document.createElement('div');
+                var entryDiv = document.createElement('a');
                 var entryCol1 = document.createElement('div');
                 var entryCol2 = document.createElement('div');
                 var genre = document.createElement('div');
-                var url = "{% url 'movie' %}";
 
                 div.className = "delete px-2";
                 entryDiv.id = movies_list[i][0];
@@ -111,6 +110,7 @@ function getTopResults(input, movies_list, genres) {
                 entryCol1.className = "col-4 d-flex align-items-center delete";
                 entryCol2.className = "col-8 movie delete";
                 genre.className = "genre px-2 delete";
+                entryDiv.href = "movie/" + entryDiv.id;
             
                 genre.innerHTML = genres[i];
 
@@ -126,12 +126,6 @@ function getTopResults(input, movies_list, genres) {
                 entryDiv.appendChild(entryCol2);
                 
                 previous = div;
-
-                entryDiv.addEventListener("click", function(){
-                    var id = entryDiv.id;
-
-                    document.location.href = "movie/" + id;
-                });
             }
 
             if (num_results <= 1) {
