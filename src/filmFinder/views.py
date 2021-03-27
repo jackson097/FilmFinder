@@ -35,7 +35,7 @@ def home_page(request):
         movie_genre_list.append([movie, genre]) # Format: [Movie Object, string]
     
     # Get top movies
-    top_movie_ids = reception.order_by('-avgRatings', '-numRatings')[:4]
+    top_movie_ids = reception.order_by('-avgRatings', '-numRatings')[:6]
     top_movies = []
 
     for movie in top_movie_ids:
