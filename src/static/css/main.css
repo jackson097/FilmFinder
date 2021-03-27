@@ -31,7 +31,7 @@ div {
 /* ----------------- Search ----------------- */
 .box {
     background-color: white;
-    height: 50vh;
+    /* height: 50vh; */
     border-radius: 15px;
 }
 
@@ -169,6 +169,8 @@ input[type=text]:focus {
 .top_movie {
     text-decoration: none;
     color: #252525;
+    border: none !important;
+    border-radius: 10px !important;
 }
 
 .top_movie:hover {
@@ -214,7 +216,7 @@ input[type=text]:focus {
     width: 75vh;
 }
 
-/* ----------------- Results ----------------- */
+/* ----------------- Register ----------------- */
 .register_field {
     width: 75vh;
 }
@@ -227,8 +229,6 @@ input[type=text]:focus {
 .register {
     border-radius: 15px 15px 0px 0px;
 }
-
-
 
 /* ----------------- Results ----------------- */
 
