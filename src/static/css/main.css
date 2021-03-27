@@ -33,12 +33,18 @@ div {
     background-color: white;
     /* height: 50vh; */
     border-radius: 15px;
+    -webkit-transition: height .25s ease;
+       -moz-transition: height .25s ease;
+            transition: height .25s ease;
 }
 
 .search_box {
     background-color: #EFEFEF;
     border-radius: 15px;
     height: 100%;
+    -webkit-transition: height .25s ease;
+       -moz-transition: height .25s ease;
+            transition: height .25s ease;
 }
 
 .icon {
@@ -171,12 +177,8 @@ input[type=text]:focus {
     color: #252525;
     border: none !important;
     border-radius: 10px !important;
+    width: 100%;
 }
-
-.top_movie:hover {
-    color: red;
-}
-
 /*----------------- Login -----------------*/
 .login_field {
     width: 75vh;
