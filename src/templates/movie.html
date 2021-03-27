@@ -55,7 +55,7 @@
         <div class="container-fluid bg-dark min-vh-100 d-flex flex-column">
             <!-- Movie image -->
             <div class="row">
-                <div class="col-12 img_gradient" style="height:70vh;">
+                <div id="movie_background" class="col-12 img_gradient" style="height:70vh; background-image: linear-gradient(180deg, rgba(33, 37, 41, 0) 0%, rgba(33, 37, 41, 0) 47.92%, #212529 100%), url('{{ movie.image }}');">
                 </div>
             </div>
 
@@ -69,7 +69,7 @@
             <!-- Movie year/time/rating -->
             <div class="row px-5">
                 <div class="col-12">
-                    <p class="movie_subtitle ">xxxx ‧ xxhxxm ‧ xx/xx</p>
+                    <p class="movie_subtitle ">{{ release }} ‧ {{ duration }} ‧ {{ rating }}/5.0</p>
                 </div>
             </div>
 
@@ -78,23 +78,30 @@
                 <!-- Description -->
                 <div class="col-6">
                     <p class="movie_text">
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. 
-                        Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-                        Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. 
-                        Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                        {{ description }}
                     </p>
                 </div>
                 <!-- Cast & genres -->
                 <div class="col-6 px-5">
                     <div class="row">
                         <div class="col-12">
-                            <p class="movie_text"><strong>Cast: </strong></p>
+                            <p class="movie_text" style="display: inline-block;"><strong>Cast: </strong></p>
+                            {% for person in cast %}
+                            <p class="movie_text " style="display:inline-block;">
+                                {{ person }},
+                            </p>
+                            {% endfor %}
                         </div>
                     </div>
 
                     <div class="row">
                         <div class="col-12">
-                            <p class="movie_text"><strong>Genres: </strong></p>
+                            <p class="movie_text" style="display:inline-block;"><strong>Genres:</strong></p>
+                            {% for genre in genres %}
+                            <p class="genre px-3 py-1 mx-1" style="display:inline-block;">
+                                {{ genre }}
+                            </p>
+                            {% endfor %}
                         </div>
                     </div>
                 </div>

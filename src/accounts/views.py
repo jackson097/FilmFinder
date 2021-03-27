@@ -26,6 +26,7 @@ def login_page(request):
     return render(request, "accounts/login.html", context)
 
 User = get_user_model()
+
 def register_page(request):
     form = RegisterForm(request.POST or None)
     context = {

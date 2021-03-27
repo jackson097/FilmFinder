@@ -14,10 +14,10 @@ class Movie(models.Model):
     title       = models.CharField(max_length=120, blank=True, null=True)
     image       = models.CharField(max_length=120, blank=True, null=True)
     overview    = models.TextField(blank=True)
-    description = models.TextField(blank=True)
 
     def __str__(self):
         return str(self.movie_id)
+
 
 class MovieGenre(models.Model):
     movie_id = models.ForeignKey(Movie, null=True, blank=True, on_delete=models.CASCADE)

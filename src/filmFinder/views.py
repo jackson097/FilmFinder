@@ -7,10 +7,12 @@ from django.http import HttpResponse
 from django.shortcuts import render, redirect
 import urllib.parse
 
-from Movies.models import Movie, MovieGenre
+from Movies.models import Movie, MovieGenre, MoviePerson
 from Genres.models import Genre
 from accounts.forms import LoginForm
 from Reception.models import Reception
+from Background.models import Background
+from Person.models import Person
 
 def home_page(request):
     movies = Movie.objects.all() 
@@ -94,11 +96,56 @@ def account_page(request):
 
 def movie_page(request, movie_id):
     movies = Movie.objects.all() 
+    movies_genres = MovieGenre.objects.all()
+    movies_people = MoviePerson.objects.all()
+    people = Person.objects.all()
+    all_genres = Genre.objects.all()
+    ratings = Reception.objects.all()
+    background = Background.objects.all()
+    genres = []
+    cast = []
+
     movie = movies.get(movie_id=movie_id)
+
+    # Create list of genres
+    movie_genre = movies_genres.filter(movie_id=movie.movie_id)
+
+    for genre in movie_genre:
+        genres.append(all_genres.get(genre_id=genre.genre_id.genre_id).genre_title)
+
+    # Ratings
+    try:
+        rating = ratings.get(movie_id=movie.movie_id).avgRatings
+    except Reception.DoesNotExist:
+        rating = None
+    
+    # Release date
+    try:
+        release = background.get(movie_id=movie.movie_id).releaseDate
+    except Background.DoesNotExist:
+        release = None
+
+    # Length
+    try:
+        length =  background.get(movie_id=movie.movie_id).length
+    except Background.DoesNotExist:
+        length = None
+
+    # Create list of cast
+    movie_person = movies_people.filter(movie_id=movie.movie_id)
+
+    for person in movie_person:
+        cast.append(people.get(person_id=movie_person.person_id.person_id).name)
 
     context = {
         "title": movie.title,
         "movie": movie,
+        "genres": genres,
+        "rating":rating,
+        "duration":length,
+        "cast":cast,
+        "description":movie.overview,
+        "release":release,
     }
 
     return render(request, "movie.html", context)
