@@ -60,6 +60,7 @@ class User(AbstractBaseUser):
     staff       = models.BooleanField(default=False)
     related     = models.CharField(max_length=255, blank=True, null=True)
     recent_searches      = models.CharField(max_length=255, blank=True, null=True)
+    genres      = models.CharField(max_length=255, blank=True, null=True)
 
     USERNAME_FIELD  = 'email'
     REQUIRED_FIELDS = []

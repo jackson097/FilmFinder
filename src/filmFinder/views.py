@@ -86,7 +86,7 @@ def top_movies_page(request):
     reception = Reception.objects.all()
     movies = MovieGenre.objects.all()
 
-    top_movie_ids = reception.filter(avgRatings__gte=8).order_by('-avgRatings', '-numRatings')
+    top_movie_ids = reception.filter(avgRatings__gte=1).order_by('-avgRatings', '-numRatings')
     top_movies = []
 
     for movie in top_movie_ids:
