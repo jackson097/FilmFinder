@@ -7,7 +7,6 @@ function insertAfter(referenceNode, newNode) {
 }
 
 function getSearchHistory() {
-    console.log(recent_searches);
     if (recent_searches != "None" && recent_searches != "") {
         document.getElementById('line_element').style.display = "block";
 
@@ -171,10 +170,13 @@ function closeAllLists() {
 }
 
 function removeRecentSearches() {
-    var subtitle = document.getElementById('subtitle')
+    var subtitle = document.getElementById('subtitle');
+    var clearButton = document.getElementById("clear_button");
+
     $('.entry').parent().parent().remove();
     $('.entry').parent().remove();
     $('.entry').remove();
+    clearButton.style = "display: none;";
     subtitle.classList.remove("pb-2");
 }
 

@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import (AbstractBaseUser, BaseUserManager)
+import random
 
 def upload_image_path(instance, filename):
     new_filename = random.randint(1,3910209312)

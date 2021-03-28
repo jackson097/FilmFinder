@@ -3,9 +3,9 @@ html, body {
 }
 
 div {
-    -webkit-transition: height .25s ease;
-       -moz-transition: height .25s ease;
-            transition: height .25s ease;
+    -webkit-transition: .25s ease;
+       -moz-transition: .25s ease;
+            transition: .25s ease;
 }
 
 /* width */
@@ -31,20 +31,15 @@ div {
 /* ----------------- Search ----------------- */
 .box {
     background-color: white;
-    /* height: 50vh; */
     border-radius: 15px;
     -webkit-transition: height .25s ease;
-       -moz-transition: height .25s ease;
-            transition: height .25s ease;
+    -moz-transition: height .25s ease;
+         transition: height .25s ease;
 }
 
 .search_box {
     background-color: #EFEFEF;
     border-radius: 15px;
-    height: 100%;
-    -webkit-transition: height .25s ease;
-       -moz-transition: height .25s ease;
-            transition: height .25s ease;
 }
 
 .icon {
