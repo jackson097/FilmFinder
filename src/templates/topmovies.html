@@ -29,11 +29,9 @@
 <div class="row justify-content-center">
 	{% for movies in top_movies %}
 		<div class="col">
-            <img src="{{movies.movie_id.image}}" class="mx-auto" style="width: 300px; height: 450px;">
+            <img src="{{movies.movie_id.image}}" class="mx-auto justify-content-center" style="width: 300px; height: 450px;">
 		{% if forloop.counter|divisibleby:5 %}
-		</div> 
-        </div>
-        <div class="row justify-content-center py-5"><div class="col"><hr/></div>
+		</div></div><div class="row justify-content-center py-5"><div class="col"><hr/></div>
 		{%else%}
 		</div>
 		{%endif%}			
