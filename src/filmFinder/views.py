@@ -62,7 +62,12 @@ def results_page(request):
 
     # Update recent searches
     if (search_query.isspace() == False and search_query != ""):
-        request.user.recent_searches = search_query + "," + request.user.recent_searches
+        previous_searches = request.user.recent_searches
+        
+        if (previous_searches == None):
+            previous_searches = ""
+
+        request.user.recent_searches = search_query + "," + previous_searches
         request.user.save()
 
     context = {
