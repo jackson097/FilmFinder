@@ -38,10 +38,10 @@
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle ms-auto" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             <div class="avatar">
-                                {% if request.user.profile_pic == None %}
+                                {% if request.user.get_profile_pic == None %}
                                 <img src="{% static 'images\blank_avatar.png' %}" alt="Avatar" style="width:40px;">
                                 {% else %}
-                                {% with request.user.get_profile_pic as url%}
+                                {% with request.user.get_profile_pic as url %}
                                 <img id="profile_pic" src="{{ url }}" alt="Avatar">
                                 {% endwith %}
                                 {% endif %}

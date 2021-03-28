@@ -99,6 +99,8 @@ class User(AbstractBaseUser):
         return self.staff
 
     def get_profile_pic(self):
-        return self.profile_pic.url
+        if (self.profile_pic):
+            return self.profile_pic.url
+        return None
 
 
