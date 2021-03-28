@@ -26,16 +26,24 @@
     </div>
 </div>
 
-<div class="row justify-content-center">
+<!-- Top movie results -->
+<div class="row pt-3">
 	{% for movies in top_movies %}
-		<div class="col">
-            <a href="{% url 'movie' movies.movie_id %}"><img src="{{movies.movie_id.image}}" class="mx-auto justify-content-center" style="width: 300px; height: 450px;"></a>
-		{% if forloop.counter|divisibleby:5 %}
-		</div></div><div class="row justify-content-center py-5"><div class="col"><hr/></div>
-		{%else%}
-		</div>
+		<div class="col-2">
+            <a href="{% url 'movie' movies.movie_id %}" style="width: 100%;">
+                <img src="{{movies.movie_id.image}}" class="mx-auto justify-content-center" style="width: inherit;border-radius: 10px;">
+            </a>
+        </div>
+		{% if forloop.counter|divisibleby:6 %}
+</div>
+<div class="row pt-3">
+    <div class="col-2">
+        <a href="{% url 'movie' movies.movie_id %}" style="width: 100%;">
+            <img src="{{movies.movie_id.image}}" class="mx-auto justify-content-center top_movie" style="width: inherit; border-radius: 10px;">
+        </a>
+    </div>
 		{%endif%}			
 	{% endfor %}
 </div>
-</div>
+
 {% endblock %}
