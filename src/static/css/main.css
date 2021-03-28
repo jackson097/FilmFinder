@@ -73,12 +73,6 @@ input[type=text]:focus {
     color: grey;
 }
 
-.datetime {
-    font-size: 12px;
-    color: #747474;
-    text-align: right;
-}
-
 .avatar {
     display: flex;
     background-color: white;
@@ -89,6 +83,7 @@ input[type=text]:focus {
     border-radius: 50%;
     overflow: hidden;
     float: left;
+    border-style: double;
 }
 
 .subtitle {
