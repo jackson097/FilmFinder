@@ -14,7 +14,7 @@
         <div class="row pb-3">
             <!-- Search box -->
             <div class="col-12">
-                <div class="search_box py-3 px-4">
+                <div id="search_box" class="search_box py-3 px-4">
                     <form class="form" method="GET" action="{% url 'result' %}">
                         <div class="row">
                             <div class="col-9">
@@ -76,12 +76,10 @@
         <div class="row justify-content-center">
             {% for movie in top_movies %}
             <div class="col-2 lead">
-                <div class="top_movie card mx-auto px-0" id='{{ movie.movie_id }}' style="width: 82px;">
-                    <a class="top_movie" href="{% url 'movie' movie.movie_id %}">
-                    <!-- Movie poster -->
-                    <img src="{{movie.image}}" style="width:82px; height:auto; border-radius: 10px;" class="card-img-top">
-                    </a>
-                </div>
+                <a class="top_movie" id="{{ movie.movid_id }}"href="{% url 'movie' movie.movie_id %}">
+                <!-- Movie poster -->
+                    <img src="{{movie.image}}" style="width:inherit; height:auto; border-radius: 10px;">
+                </a>
             </div>
             {%endfor%}
         </div>

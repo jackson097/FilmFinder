@@ -59,27 +59,40 @@
                 </div>
             </div>
 
+            <!-- Back button -->
+            <div class="row px-5">
+                <div class="col-12">
+                    <a href="javascript:history.back()">
+                        <img src="{% static 'images\back_button.svg' %}" style="height: inherit; height: 30px; width: auto;">
+                    </a>
+                </div>
+            </div>
+
             <!-- Movie title -->
             <div class="row px-5 pt-2">
                 <div class="col-12">
                     <p class="movie_title mb-0">{{ title }}</p>
                 </div>
             </div>
-
-            <!-- Movie year/time/rating -->
-            <div class="row px-5">
-                <div class="col-12">
-                    <p class="movie_subtitle ">{{ release }} ‧ {{ duration }} ‧ {{ rating }}/10.0</p>
-                </div>
-            </div>
-
+            
             <!-- Description/crew/genre -->
             <div class="row px-5 pt-2">
-                <!-- Description -->
                 <div class="col-6">
-                    <p class="movie_text">
-                        {{ description }}
-                    </p>
+                    <!-- Movie year/time/rating -->
+                    <div class="row">
+                        <div class="col-12">
+                            <p class="movie_subtitle ">{{ release }} ‧ {{ duration }} ‧ {{ rating }}/10.0</p>
+                        </div>
+                    </div>
+                                    
+                    <!-- Description -->
+                    <div class="row">
+                        <div class="col-12">
+                            <p class="movie_text">
+                                {{ description }}
+                            </p>
+                        </div>
+                    </div>
                 </div>
                 <!-- Cast & genres -->
                 <div class="col-6 px-5">

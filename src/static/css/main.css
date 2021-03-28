@@ -3,9 +3,9 @@ html, body {
 }
 
 div {
-    -webkit-transition: height .25s ease;
-       -moz-transition: height .25s ease;
-            transition: height .25s ease;
+    -webkit-transition: .25s ease;
+       -moz-transition: .25s ease;
+            transition: .25s ease;
 }
 
 /* width */
@@ -31,14 +31,15 @@ div {
 /* ----------------- Search ----------------- */
 .box {
     background-color: white;
-    /* height: 50vh; */
     border-radius: 15px;
+    -webkit-transition: height .25s ease;
+    -moz-transition: height .25s ease;
+         transition: height .25s ease;
 }
 
 .search_box {
     background-color: #EFEFEF;
     border-radius: 15px;
-    height: 100%;
 }
 
 .icon {
@@ -72,12 +73,6 @@ input[type=text]:focus {
     color: grey;
 }
 
-.datetime {
-    font-size: 12px;
-    color: #747474;
-    text-align: right;
-}
-
 .avatar {
     display: flex;
     background-color: white;
@@ -88,6 +83,7 @@ input[type=text]:focus {
     border-radius: 50%;
     overflow: hidden;
     float: left;
+    border-style: double;
 }
 
 .subtitle {
@@ -171,12 +167,8 @@ input[type=text]:focus {
     color: #252525;
     border: none !important;
     border-radius: 10px !important;
+    width: 100%;
 }
-
-.top_movie:hover {
-    color: red;
-}
-
 /*----------------- Login -----------------*/
 .login_field {
     width: 75vh;
