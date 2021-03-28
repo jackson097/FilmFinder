@@ -3,9 +3,9 @@ html, body {
 }
 
 div {
-    -webkit-transition: .25s ease;
-       -moz-transition: .25s ease;
-            transition: .25s ease;
+    -webkit-transition: height .25s ease;
+       -moz-transition: height .25s ease;
+            transition: height .25s ease;
 }
 
 /* width */
@@ -31,15 +31,14 @@ div {
 /* ----------------- Search ----------------- */
 .box {
     background-color: white;
+    height: 50vh;
     border-radius: 15px;
-    -webkit-transition: height .25s ease;
-    -moz-transition: height .25s ease;
-         transition: height .25s ease;
 }
 
 .search_box {
     background-color: #EFEFEF;
     border-radius: 15px;
+    height: 100%;
 }
 
 .icon {
@@ -73,6 +72,12 @@ input[type=text]:focus {
     color: grey;
 }
 
+.datetime {
+    font-size: 12px;
+    color: #747474;
+    text-align: right;
+}
+
 .avatar {
     display: flex;
     background-color: white;
@@ -83,7 +88,6 @@ input[type=text]:focus {
     border-radius: 50%;
     overflow: hidden;
     float: left;
-    border-style: double;
 }
 
 .subtitle {
@@ -94,14 +98,6 @@ input[type=text]:focus {
 
 #subtitle {
     color:#747474 !important;
-}
-
-#clear_button {
-    color: red;
-    border: none;
-    font-size: 12px;
-    font-weight: 500;
-    display: none;
 }
 
 .link {
@@ -165,10 +161,12 @@ input[type=text]:focus {
 .top_movie {
     text-decoration: none;
     color: #252525;
-    border: none !important;
-    border-radius: 10px !important;
-    width: 100%;
 }
+
+.top_movie:hover {
+    color: red;
+}
+
 /*----------------- Login -----------------*/
 .login_field {
     width: 75vh;
@@ -179,8 +177,14 @@ input[type=text]:focus {
     box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset, 0 0 8px rgba(255, 0, 0, 0.6);
 }
 
+
 .pass {
     border-radius: 0px 0px 15px 15px;
+}
+
+.pass2 {
+    border-radius: 0px 0px 0px 0px;
+    border: #252525;
 }
 
 .login {
@@ -208,7 +212,7 @@ input[type=text]:focus {
     width: 75vh;
 }
 
-/* ----------------- Register ----------------- */
+/* ----------------- Results ----------------- */
 .register_field {
     width: 75vh;
 }
@@ -221,6 +225,8 @@ input[type=text]:focus {
 .register {
     border-radius: 15px 15px 0px 0px;
 }
+
+
 
 /* ----------------- Results ----------------- */
 
@@ -267,29 +273,4 @@ input[type=text]:focus {
 
 #title3 {
     color: #747474;
-}
-
-/* ----------------- Movie ----------------- */
-.img_gradient {
-    background-size: cover;
-    background-image:
-    linear-gradient(180deg, rgba(33, 37, 41, 0) 0%, rgba(33, 37, 41, 0) 47.92%, #212529 100%),
-    url('/static/images/test_movie_background.jpg');
-    background-position: top center;
-}
-
-.movie_title {
-    color: white;
-    font-size: 30px;
-    font-weight: 500;
-}
-
-.movie_subtitle {
-    color: white;
-    font-size: 14px;
-}
-
-.movie_text {
-    color: white;
-    font-size: 15px;
 }
