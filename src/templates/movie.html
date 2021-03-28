@@ -37,9 +37,15 @@
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle ms-auto" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                          <div class="avatar">
-                            <img src="{% static 'images\blank_avatar.png' %}" alt="Avatar" style="width:40px;">
-                          </div>
+                            <div class="avatar">
+                                {% if request.user.get_profile_pic == None %}
+                                <img src="{% static 'images\blank_avatar.png' %}" alt="Avatar" style="width:40px;">
+                                {% else %}
+                                {% with request.user.get_profile_pic as url %}
+                                <img id="profile_pic" src="{{ url }}" alt="Avatar">
+                                {% endwith %}
+                                {% endif %}
+                              </div>
                         </a>
                         <div class="dropdown-menu dropdown-menu-end dropdown-menu-dark" data-tor-caret="top start" aria-labelledby="navbarDropdownMenuLink">
                           <a class="dropdown-item" href="{% url 'account' %}">Account</a>
@@ -125,5 +131,6 @@
         <!-- Javascript -->
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js" integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0" crossorigin="anonymous"></script>
         <script src="{% static 'js/search.js' %}"></script>
+        <script src="{% static 'js/base.js' %}"></script>
     </body>
 </html>
