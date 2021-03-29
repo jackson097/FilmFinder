@@ -47,7 +47,7 @@ def register_page(request):
         qs = User.objects.filter(email=username)
         if qs.exists():
             messages.error(request, "Email is taken")
-
+        
         if len(password) < 5:
             messages.error(request, "Passwords must have a length of at least 5")
             return redirect('register')
@@ -56,7 +56,7 @@ def register_page(request):
            messages.error(request, "Passwords must be the same")
            return redirect('register')
 
-        else:
+        elif not qs.exists():
             # Below will need to be modified when we add genres as an option
             new_user = User.objects.create_user(username, full_name, password)
             return redirect('register_genres')  
