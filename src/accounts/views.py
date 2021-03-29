@@ -6,6 +6,7 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 
 from .forms import LoginForm, RegisterForm, UserUpdateForm
+from Genres.models import Genre
 
 User = get_user_model()
 
@@ -69,6 +70,7 @@ def register_genres_page(request):
 
 @login_required
 def account_page(request):
+    genres = Genre.objects.all()
     user = User.objects.get(email = request.user)
 
     if request.method == "POST":
@@ -86,6 +88,7 @@ def account_page(request):
     context = {
         "title": "My Account",
         "form": edit_form,
+        "genres": genres,
     }
 
     return render(request, "accounts/account.html", context)

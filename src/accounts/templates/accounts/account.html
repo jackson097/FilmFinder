@@ -50,6 +50,16 @@
                             <p class="movie_title mb-0 px-4" style="display: inline-block;">My Account</p>
                         </div>
                     </div>
+                    <!-- Messages -->
+                    <div class="row">
+                        <div class="col-12 text-center" style="color: white;">
+                            {% if messages %}
+                                {% for message in messages%}
+                                    {{ message }}
+                                {% endfor %}
+                            {% endif %}
+                        </div>
+                    </div>
                     <form id="edit-form" class="form" method="POST" action="{% url 'account' %}">{% csrf_token %}      
                         <!-- Profile picture and name -->
                         <div class="row px-3 pb-2 pt-5">
@@ -88,7 +98,7 @@
                                         <input type="text" class="form-control account_field px-0 py-1" id="full_name_box" name="{{ form.full_name.html_name }}" value="{{ user.full_name }}" disabled> 
                                     </div>
                                     <div class="col-2 d-flex align-content-center justify-content-center">
-                                        <button id="edit_name" type="button" class="edit_button h-75 align-self-center" style="width: 100%;" value="Edit">Edit</button>
+                                        <button id="edit_name" type="button" class="edit_button py-1 align-self-center" style="width: 100%;" value="Edit">Edit</button>
                                     </div>
                                 </div>
                                 <!-- Email -->
@@ -102,7 +112,7 @@
                                         <input type="email" class="form-control account_field px-0 py-1" id="email_box" name="{{ form.email.html_name }}" value="{{ user.email }}" disabled> 
                                     </div>
                                     <div class="col-2 d-flex align-content-center justify-content-center">
-                                        <button id="edit_email"  type="button" class="edit_button h-75 align-self-center" style="width: 100%;" value="Edit">Edit</button>
+                                        <button id="edit_email"  type="button" class="edit_button py-1 align-self-center" style="width: 100%;" value="Edit">Edit</button>
                                     </div>
                                 </div>
                                 <!-- Password -->
@@ -116,7 +126,7 @@
                                         <input type="password" class="form-control account_field px-0 py-1" id="{{ form.old_password.id_for_label }}" name="{{ form.old_password.html_name }}" value="{{ user.password }}" disabled> 
                                     </div>
                                     <div class="col-2 d-flex align-content-center justify-content-center">
-                                        <button class="edit_button h-75 align-self-center"  type="button" style="width: 100%;" value="Change">Change</button>
+                                        <button class="edit_button py-1 align-self-center"  type="button" style="width: 100%;" value="Change">Change</button>
                                     </div>
                                 </div>
                             </div>
@@ -129,20 +139,21 @@
                                         <p class="account_subtitle mb-0">Favourite Genres</p>
                                     </div>
                                     <div class="col-2 d-flex align-items-center">
-                                        <button class="edit_button"  type="button" style="width: 100%;" value="Edit">Edit</button>
+                                        <button class="edit_button py-1"  type="button" style="width: 100%;" value="Edit" data-bs-toggle="modal" data-bs-target="#genreModal">Edit</button>
                                     </div>
                                 </div>
                                 <div class="row text-center pt-4">
                                     {% for genre in user.get_genres %}
+                                    {% if not forloop.counter|divisibleby:5 %} <!-- 5 because we want 4 in a row, should move to next row at 5 -->
                                     <div class="col-3">
-                                        <p class="mb-0 fav_genre px-2">{{ genre }}</p>
+                                        <p class="mb-0 fav_genre px-2 py-1">{{ genre }}</p>
                                         
                                     </div>
-                                    {% if forloop.counter|divisibleby:4 %}
+                                    {% else %} 
                                 </div>
                                 <div class="row text-center pt-2">
                                     <div class="col-3">
-                                        <p class="mb-0 fav_genre px-2">{{ genre }}</p>
+                                        <p class="mb-0 fav_genre px-2 py-1">{{ genre }}</p>
                                     </div>
                                     {% endif %}
                                     {% endfor %}
@@ -161,6 +172,39 @@
                     </div>
                 </div>
                 <div class="col-3"></div>
+            </div>
+        </div>
+
+        <!-- Modal -->
+        <div class="modal fade" id="genreModal" tabindex="-1" aria-labelledby="genreModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="genreModalLabel">Select your favourite genres:</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row text-center">
+                            {% for title in genres %}
+                            {% if not forloop.counter|divisibleby:4 %} <!-- 4 because we want 3 in a row, should move to next row at 4 -->
+                            <div class="col-4">
+                                <p class="mb-0 genre p-2">{{ title.genre_title }}</p>
+                            </div>
+                            {% else %}
+                        </div>
+                        <div class="row text-center pt-2">
+                            <div class="col-4">
+                                <p class="mb-0 genre p-2">{{ title.genre_title }}</p>
+                            </div>
+                            {% endif %}
+                            {% endfor %}
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="button" class="btn save">Save changes</button>
+                    </div>
+                </div>
             </div>
         </div>
 

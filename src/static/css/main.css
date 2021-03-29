@@ -436,3 +436,13 @@ input[type=text]:focus {
     border-radius: 5px;
     font-size: 14px;
 }
+
+.save {
+    color: white;
+    background-color: red;
+}
+
+.save:hover {
+    background-color: darkred;
+    color: white;
+}
