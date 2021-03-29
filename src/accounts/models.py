@@ -57,7 +57,7 @@ class UserManager(BaseUserManager):
 class User(AbstractBaseUser):
     email       = models.EmailField(max_length=255, unique=True)
     full_name   = models.CharField(max_length=255, null=True, blank=True)
-    profile_pic = models.ImageField(upload_to=upload_image_path, null=True, blank=True)
+    profile_pic = models.ImageField(upload_to=upload_image_path, null=True, blank=True, default="static/images/blank_avatar.png")
     active      = models.BooleanField(default=True)
     admin       = models.BooleanField(default=False)
     staff       = models.BooleanField(default=False)

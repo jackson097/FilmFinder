@@ -375,6 +375,7 @@ input[type=text]:focus {
 
 .account_avatar {
     display: flex;
+    position: relative;
     background-color: white;
     justify-content: center;
     align-items: center;
@@ -385,7 +386,38 @@ input[type=text]:focus {
     float: left;
     border-style: double;
     border-color: white;
+    cursor: pointer;
 }
+
+.overlay {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    opacity: 0;
+    transition: .3s ease;
+    background-color: rgb(0,0,0,0.5);
+  }
+  
+  /* When you mouse over the container, fade in the overlay icon*/
+  .account_avatar:hover .overlay {
+    opacity: 1;
+  }
+  
+  /* The icon inside the overlay is positioned in the middle vertically and horizontally */
+  .icon {
+    color: white;
+    font-size: 25px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    text-align: center;
+  }
+  
+  .fa-pencil:hover {
+    color: #eee !important;
+  }
 
 .pencil {
     position: relative;

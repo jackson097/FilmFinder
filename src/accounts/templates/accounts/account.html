@@ -19,6 +19,9 @@
         <!-- Bootstrap CSS -->
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
 
+        <!-- Font Awesome Icon Library -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
         <!-- CSS -->
         <link rel="stylesheet" type="text/css" href="{% static 'css/main.css' %}">
         
@@ -51,17 +54,22 @@
                         <!-- Profile picture and name -->
                         <div class="row px-3 pb-2 pt-5">
                             <div class="col-12 d-flex align-items-center">
-                                <div class="avatar_container ">
-                                    <div class="account_avatar" style="border:none!important;">
-                                        {% if request.user.get_profile_pic == None %}
-                                        <img src="{% static 'images\blank_avatar.png' %}" alt="Avatar" style="width:40px;">
-                                        {% else %}
-                                        {% with request.user.get_profile_pic as url %}
-                                        <img id="profile_pic" src="{{ url }}" alt="Avatar">
-                                        {% endwith %}
-                                        {% endif %}
-                                    </div>
-                                    <img class="pencil" src="{% static 'images\edit_icon.svg' %}">
+                                <div class="avatar_container">
+                                    <label for="file-input">
+                                        <div class="account_avatar" style="border:none!important;">
+                                            {% if request.user.get_profile_pic == None %}
+                                            <img id="profile_pic" src="{% static 'images\blank_avatar.png' %}" alt="Avatar" style="width:40px;">
+                                            {% else %}
+                                            {% with request.user.get_profile_pic as url %}
+                                            <img id="profile_pic" src="{{ url }}" alt="Avatar">
+                                            {% endwith %}
+                                            {% endif %}
+                                            <div class="overlay">
+                                                <span class="fa fa-pencil icon"></span>
+                                            </div>
+                                        </div>
+                                    </label>
+                                    <input id="file-input" name="image" type="file" style="display: none;" onchange="previewFile()"/>
                                 </div>
                                 <p class="name mb-0 px-3" style="display: inline-block;">{{ user.full_name }}</p>
                             </div>

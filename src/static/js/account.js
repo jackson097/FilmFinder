@@ -24,6 +24,28 @@ function getImgOrientation(img) {
     return direction;
 }
 
+function previewFile() {
+    var preview = document.getElementById('profile_pic')
+    var file    = document.querySelector('input[type=file]').files[0];
+    var reader  = new FileReader();
+  
+    direction = getImgOrientation(preview);
+
+    if (direction == "portrait" || direction == "even") {
+        profile_pic.style.width = "100px";
+    } else {
+        profile_pic.style.width = "200px";
+    }
+
+    reader.onloadend = function () {
+      preview.src = reader.result;
+    }
+  
+    if (file) {
+      reader.readAsDataURL(file);
+    } 
+  }
+
 var profile_pic = document.getElementById('profile_pic')
 var direction = getImgOrientation(profile_pic);
 
