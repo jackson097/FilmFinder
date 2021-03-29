@@ -173,10 +173,12 @@
                                 {% if forloop.counter|divisibleby:4 %}
                             </div>
                             {% endif %}
+                            {% if forloop.last and not forloop.counter|divisibleby:4 %}
+                            </div>
+                            {% endif %}
                             {% endfor %}
                         </div>
                     </div>
-                </div>
             </form>
             <div class="row d-flex align-content-center pt-4 pb-4 px-0">
                 <div class="col-6 d-flex justify-content-end ps-0">
