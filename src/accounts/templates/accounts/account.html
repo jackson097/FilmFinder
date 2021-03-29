@@ -52,7 +52,7 @@
                         <div class="row px-3 pb-2 pt-5">
                             <div class="col-12 d-flex align-items-center">
                                 <div class="avatar_container ">
-                                    <div class="account_avatar">
+                                    <div class="account_avatar" style="border:none!important;">
                                         {% if request.user.get_profile_pic == None %}
                                         <img src="{% static 'images\blank_avatar.png' %}" alt="Avatar" style="width:40px;">
                                         {% else %}

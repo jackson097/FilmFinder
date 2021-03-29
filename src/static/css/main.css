@@ -306,8 +306,22 @@ input[type=text]:focus {
 
 /* ----------------- Top Movies ----------------- */
 .top_movie_card {
-    background-color: rgba(0, 0, 0, 0.4);
-    border-radius: 0px 0px 10px 10px;
+    /* background-color: rgba(0, 0, 0, 0.4); */
+    /* border-radius: 0px 0px 10px 10px; */
+    border-radius: 10px;
+    visibility: hidden;
+}
+
+.movie_result {
+    transition: all .2s ease-in-out;
+}
+
+.movie_result:hover {
+    transform: scale(1.1);
+}
+
+.movie_result:hover .top_movie_card{
+    visibility: visible;
 }
 
 /* ----------------- Account ----------------- */
