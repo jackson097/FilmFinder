@@ -14,11 +14,12 @@
 {% block info %}
 <!-- Page content -->
 <div class="row pt-3">
-    <!-- Search title -->
-    <div class="col-9">
-        <div id="title1" class="title">
-            Top Movies
-        </div>
+    <!-- Back button and Search title -->
+    <div class="col-9 d-flex align-content-center">
+        <a class="d-flex align-self-center" href="javascript:history.back()" style="display: inline-block !important; height: inherit;">
+            <img src="{% static 'images\back_button.svg' %}" style="height: inherit; height: 25px; width: auto;">
+        </a>
+        <p id="title1" class="title mb-0 px-3" style="display: inline-block;">Top Movies</p>
     </div>
     <!-- Filters -->
     <div clas="col-3">
