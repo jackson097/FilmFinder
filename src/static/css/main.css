@@ -397,3 +397,10 @@ input[type=text]:focus {
     cursor: pointer;
     position: relative;
 }
+
+.fav_genre {
+    color:white;
+    background-color: red;
+    border-radius: 5px;
+    font-size: 14px;
+}

@@ -106,5 +106,11 @@ class User(AbstractBaseUser):
         if (self.profile_pic):
             return self.profile_pic.url
         return None
+    
+    def get_genres(self):
+        genres =  self.genres.split(",")
+        genres = [x for x in genres if x]
+
+        return genres
 
 

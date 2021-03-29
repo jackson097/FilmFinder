@@ -80,7 +80,7 @@
                                         <input type="text" class="form-control account_field px-0 py-1" id="full_name_box" name="{{ form.full_name.html_name }}" value="{{ user.full_name }}" disabled> 
                                     </div>
                                     <div class="col-2 d-flex align-content-center justify-content-center">
-                                        <button id="edit_name" type="button" class="edit_button " style="width: 100%;" value="Edit">Edit</button>
+                                        <button id="edit_name" type="button" class="edit_button h-75 align-self-center" style="width: 100%;" value="Edit">Edit</button>
                                     </div>
                                 </div>
                                 <!-- Email -->
@@ -94,7 +94,7 @@
                                         <input type="email" class="form-control account_field px-0 py-1" id="email_box" name="{{ form.email.html_name }}" value="{{ user.email }}" disabled> 
                                     </div>
                                     <div class="col-2 d-flex align-content-center justify-content-center">
-                                        <button id="edit_email"  type="button" class="edit_button " style="width: 100%;" value="Edit">Edit</button>
+                                        <button id="edit_email"  type="button" class="edit_button h-75 align-self-center" style="width: 100%;" value="Edit">Edit</button>
                                     </div>
                                 </div>
                                 <!-- Password -->
@@ -108,15 +108,37 @@
                                         <input type="password" class="form-control account_field px-0 py-1" id="{{ form.old_password.id_for_label }}" name="{{ form.old_password.html_name }}" value="{{ user.password }}" disabled> 
                                     </div>
                                     <div class="col-2 d-flex align-content-center justify-content-center">
-                                        <button class="edit_button "  type="button" style="width: 100%;" value="Edit">Edit</button>
+                                        <button class="edit_button h-75 align-self-center"  type="button" style="width: 100%;" value="Change">Change</button>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                         <!-- Genres -->
-                         <div class="row p-4 my-3 account_div" style="height:30vh;">
-                            <div class="col-12" >
-                                <p class="account_subtitle mb-0">Favourite Genres</p>
+                        <!-- Genres -->
+                        <div class="row p-4 my-3 account_div">
+                            <div class="col-12">
+                                <div class="row">
+                                    <div class="col-10 d-flex align-items-center" >
+                                        <p class="account_subtitle mb-0">Favourite Genres</p>
+                                    </div>
+                                    <div class="col-2 d-flex align-items-center">
+                                        <button class="edit_button"  type="button" style="width: 100%;" value="Edit">Edit</button>
+                                    </div>
+                                </div>
+                                <div class="row text-center pt-4">
+                                    {% for genre in user.get_genres %}
+                                    <div class="col-3">
+                                        <p class="mb-0 fav_genre px-2">{{ genre }}</p>
+                                        
+                                    </div>
+                                    {% if forloop.counter|divisibleby:4 %}
+                                </div>
+                                <div class="row text-center pt-2">
+                                    <div class="col-3">
+                                        <p class="mb-0 fav_genre px-2">{{ genre }}</p>
+                                    </div>
+                                    {% endif %}
+                                    {% endfor %}
+                                </div>
                             </div>
                         </div>
                     </form> 

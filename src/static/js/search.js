@@ -21,7 +21,7 @@ function getSearchHistory() {
         clearButton.style = "display: block;";
 
         var previous = document.getElementById("subtitle_row");
-        var entries = recent_searches.split(",");
+        var entries = recent_searches.split(",").filter(Boolean);
 
         length = entries.length;
         if (length > 4) {
