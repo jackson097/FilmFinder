@@ -4,7 +4,7 @@ from django.shortcuts import render, redirect
 from django.contrib.auth import get_user_model
 from django.contrib import messages
 
-from .forms import LoginForm, RegisterForm
+from .forms import LoginForm, RegisterForm, UserUpdateForm
 
 User = get_user_model()
 
@@ -65,3 +65,19 @@ def register_page(request):
 
 def register_genres_page(request):
     return render(request, "accounts/register_genres.html")
+    
+def account_page(request):
+    if request.method == "POST":
+        edit_form = UserUpdateForm(request.POST, instance=request.user)
+        if edit_form.is_valid():
+            edit_form.save()
+            messages.success(request, "Your profile has been updated!")
+            return redirect('account')
+    else:
+        edit_form = UserUpdateForm()
+
+    context = {
+        "title": "My Account",
+    }
+
+    return render(request, "accounts/account.html", context)

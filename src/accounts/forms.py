@@ -36,4 +36,30 @@ class RegisterForm(forms.Form):
     
     def clean(self):
         data = self.cleaned_data
+        password = self.cleaned_data.get("password")
+        password2 = self.cleaned_data.get("password2")
+        if password != password2:
+            raise forms.ValidationError("Passwords must match")
+        return data
+
+class UserUpdateForm(forms.Form):
+    old_password = forms.CharField()
+    new_password1 = forms.CharField(widget=forms.PasswordInput)
+    new_password2 = forms.CharField(label='Confirm password', widget=forms.PasswordInput)
+
+    class Meta:
+        model = User
+        fields = (
+            'email',
+            'full_name',
+            'profile_pic',
+            'genres',
+        )
+    
+    def clean(self):
+        data = self.cleaned_data
+        password = self.cleaned_data.get("new_password1")
+        password2 = self.cleaned_data.get("new_password2")
+        if password != password2:
+            raise forms.ValidationError("Passwords must match")
         return data

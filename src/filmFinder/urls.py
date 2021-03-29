@@ -18,8 +18,8 @@ from django.urls import path
 from django.conf.urls import url
 from django.contrib.auth.views import LogoutView
 
-from .views import home_page, results_page, top_movies_page, account_page, movie_page
-from accounts.views import login_page, register_page, register_genres_page
+from .views import home_page, results_page, top_movies_page, movie_page
+from accounts.views import login_page, register_page, account_page, register_genres_page
 
 urlpatterns = [
     path('admin/', admin.site.urls),

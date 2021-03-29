@@ -112,13 +112,6 @@ def top_movies_page(request):
     }
 
     return render(request, "topmovies.html", context)
- 
-def account_page(request):
-    context = {
-        "title": "My Account",
-    }
-
-    return render(request, "account.html", context)
 
 def movie_page(request, movie_id):
     movies = Movie.objects.all() 
