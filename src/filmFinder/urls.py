@@ -19,13 +19,14 @@ from django.conf.urls import url
 from django.contrib.auth.views import LogoutView
 
 from .views import home_page, results_page, top_movies_page, account_page, movie_page
-from accounts.views import login_page, register_page
+from accounts.views import login_page, register_page, register_genres_page
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', home_page, name="index"),
     url(r'^login/$', login_page, name='login'),
     path('register/', register_page, name='register'),
+    path('register_genres/', register_genres_page, name='register_genres'),
     path('logout/', LogoutView.as_view(), name="logout"),
     path('results/', results_page, name="result"),
     path('topmovies/', top_movies_page, name="topmovies"),

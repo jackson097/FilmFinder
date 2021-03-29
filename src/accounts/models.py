@@ -15,9 +15,12 @@ def upload_image_path(instance, filename):
 	return "static/images/{new_filename}/{final_filename}".format(new_filename=new_filename,final_filename=final_filename)
 
 class UserManager(BaseUserManager):
+    # We will need to add genres as a list to the parameters
     def create_user(self, email, full_name=None, password=None, is_active=True, is_staff=False, is_admin=False):
         if not email:
             raise ValueError("Users must have an email address")
+        if not full_name:
+            raise ValueError("Users must have a full name")
         if not password:
             raise ValueError("Users must have a password")
 
