@@ -3,7 +3,7 @@
 {% block searchbar %}
 <!-- Search bar -->
 <form class="form-inline mx-auto input-group">
-    <input class="form-control mx-0 py-2" id="results_search" type="text" name="search" placeholder="Search by title, actor or genre" autocomplete="off">
+    <input class="form-control mx-0 py-2" id="results_search" type="text" name="search" placeholder="Search by title, actor or genre in top movies" autocomplete="off">
     <div class="input-group-append">
         <button class="btn w-auto h-100" id="results_enter" type="submit">Enter</button>
 
@@ -14,11 +14,12 @@
 {% block info %}
 <!-- Page content -->
 <div class="row pt-3">
-    <!-- Search title -->
-    <div class="col-9">
-        <div id="title1" class="title">
-            Top Movies
-        </div>
+    <!-- Back button and Search title -->
+    <div class="col-9 d-flex align-content-center">
+        <a class="d-flex align-self-center" href="javascript:history.back()" style="display: inline-block !important; height: inherit;">
+            <img src="{% static 'images\back_button.svg' %}" style="height: inherit; height: 25px; width: auto;">
+        </a>
+        <p id="title1" class="title mb-0 px-3" style="display: inline-block;">Top Movies</p>
     </div>
     <!-- Filters -->
     <div clas="col-3">
@@ -29,18 +30,50 @@
 <!-- Top movie results -->
 <div class="row pt-3">
 	{% for movies in top_movies %}
-		<div class="col-2">
-            <a href="{% url 'movie' movies.movie_id %}" style="width: 100%;">
-                <img src="{{movies.movie_id.image}}" class="mx-auto justify-content-center" style="width: inherit;border-radius: 10px;">
-            </a>
+		<div class="col-2 px-2">
+            <div class="row">
+                <div class="col-12">
+                    <a href="{% url 'movie' movies.0.movie_id %}" style="width: 100%;">
+                        <img src="{{movies.0.movie_id.image}}" class="mx-auto justify-content-center" style="width: inherit;border-radius: 10px 10px 0px 0px;">
+                    </a>
+                </div>
+            </div>
+            <div class="top_movie_card">
+                <div class="row pt-1">
+                    <div class="col-12 text-center" style="color:white; font-weight: 500;">
+                        {{ movies.0.movie_id.title }}
+                    </div>
+                </div>
+                <div class="row pb-1">
+                    <div class="col-12 text-center" style="color:white; font-size: 13px;">
+                        {{ movies.2 }} ‧ {{ movies.3 }} ‧ {{ movies.1 }}/10.0
+                    </div>
+                </div>
+            </div>
         </div>
 		{% if forloop.counter|divisibleby:6 %}
 </div>
 <div class="row pt-3">
-    <div class="col-2">
-        <a href="{% url 'movie' movies.movie_id %}" style="width: 100%;">
-            <img src="{{movies.movie_id.image}}" class="mx-auto justify-content-center top_movie" style="width: inherit; border-radius: 10px;">
-        </a>
+    <div class="col-2 px-2">
+        <div class="row">
+            <div class="col-12">
+                <a href="{% url 'movie' movies.0.movie_id %}" style="width: 100%;">
+                    <img src="{{movies.0.movie_id.image}}" class="mx-auto justify-content-center" style="width: inherit;border-radius: 10px 10px 0px 0px;">
+                </a>
+            </div>
+        </div>
+        <div class="top_movie_card">
+            <div class="row pt-1">
+                <div class="col-12 text-center" style="color:white; font-weight: 500;">
+                    {{ movies.0.movie_id.title }}
+                </div>
+            </div>
+            <div class="row pb-1">
+                <div class="col-12 text-center" style="color:white; font-size: 13px;">
+                    {{ movies.2 }} ‧ {{ movies.3 }} ‧ {{ movies.1 }}/10.0
+                </div>
+            </div>
+        </div>
     </div>
 		{%endif%}			
 	{% endfor %}
