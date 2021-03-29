@@ -108,9 +108,11 @@ class User(AbstractBaseUser):
         return None
     
     def get_genres(self):
-        genres =  self.genres.split(",")
-        genres = [x for x in genres if x]
+        if self.genres is not None:
+            genres =  self.genres.split(",")
+            genres = [x for x in genres if x]
+            return genres
+        return []
 
-        return genres
 
 
