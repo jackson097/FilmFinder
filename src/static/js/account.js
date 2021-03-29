@@ -10,6 +10,14 @@ function edit(button, input) {
     });
 }
 
+function select(element) {
+    if (element.classList.contains("selected")) {
+        element.classList.remove("selected")
+    } else {
+        element.classList.add("selected")
+    }
+}
+
 function getImgOrientation(img) {
     var direction; 
     

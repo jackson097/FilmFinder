@@ -168,7 +168,6 @@
                                 {% endif %}
                                 <div class="col-3">
                                     <p class="mb-0 fav_genre px-2 py-1">{{ genre }}</p>
-
                                 </div>
                                 {% if forloop.counter|divisibleby:4 %}
                             </div>
@@ -206,9 +205,12 @@
                             {% if forloop.counter0|divisibleby:3 %}
                             <div class="row text-center py-2">
                                 {% endif %}
-                                <div class="col-4">
-                                    <p class="mb-0 choose_genre px-2 py-1">{{ genre.genre_title }}</p>
-
+                                <div class="col-4"> 
+                                    {% if genre.genre_title in user.get_genres %}
+                                    <p class="mb-0 choose_genre selected px-2 py-1" onclick="select(this)">{{ genre.genre_title }}</p>
+                                    {% else %}
+                                    <p class="mb-0 choose_genre px-2 py-1" onclick="select(this)">{{ genre.genre_title }}</p>
+                                    {% endif %}
                                 </div>
                                 {% if forloop.counter|divisibleby:3 %}
                             </div>
