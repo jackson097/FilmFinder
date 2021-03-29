@@ -29,9 +29,10 @@
 
 <!-- Top movie results -->
 <div class="pb-5">
-    <div class="row pt-3">
-        {% for movies in top_movies %}
-            {% if not forloop.counter|divisibleby:7 %} <!-- 7 because we want 6 in a row, should move to next row at 7 -->
+    {% for movies in top_movies %}
+        {% if forloop.counter0|divisibleby:6 %}
+        <div class="row pt-3">
+        {% endif %}
             <div class="col-2 px-3 movie_result">
                 <div class="row">
                     <div class="col-12">
@@ -53,32 +54,9 @@
                     </div> -->
                 </div>
             </div>
-            {% else %}
-    </div>
-    <div class="row pt-3">
-        <div class="col-2 px-3 movie_result">
-            <div class="row">
-                <div class="col-12">
-                    <a href="{% url 'movie' movies.0.movie_id %}" style="width: 100%;">
-                        <img src="{{movies.0.movie_id.image}}" class="mx-auto justify-content-center" style="width: inherit;border-radius: 10px;">
-                    </a>
-                </div>
-            </div>
-            <div class="top_movie_card">
-                <div class="row pt-1">
-                    <div class="col-12 text-center" style="color:white; font-weight: 500;">
-                        {{ movies.0.movie_id.title }}
-                    </div>
-                </div>
-                <!-- <div class="row pb-1">
-                    <div class="col-12 text-center" style="color:white; font-size: 13px;">
-                        {{ movies.2 }} ‧ {{ movies.3 }} ‧ {{ movies.1 }}/10.0
-                    </div>
-                </div> -->
-            </div>
+        {% if forloop.counter|divisibleby:6 %}
         </div>
-            {%endif%}			
-        {% endfor %}
-    </div>
+        {% endif %}
+    {% endfor %}
 </div>
 {% endblock %}
