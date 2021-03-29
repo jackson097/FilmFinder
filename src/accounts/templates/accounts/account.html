@@ -199,13 +199,13 @@
                     <h5 class="modal-title" id="genreModalLabel">Select your favourite genres:</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <div class="modal-body">
+                <div class="modal-body pt-0">
                     {% for genre in genres %}
                             {% if forloop.counter0|divisibleby:3 %}
                             <div class="row text-center py-2">
                                 {% endif %}
                                 <div class="col-4">
-                                    <p class="mb-0 fav_genre px-2 py-1">{{ genre.genre_title }}</p>
+                                    <p class="mb-0 choose_genre px-2 py-1">{{ genre.genre_title }}</p>
 
                                 </div>
                                 {% if forloop.counter|divisibleby:3 %}

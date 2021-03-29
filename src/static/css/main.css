@@ -446,3 +446,10 @@ input[type=text]:focus {
     background-color: darkred;
     color: white;
 }
+
+.choose_genre {
+    color:white;
+    background-color: #747474;
+    border-radius: 5px;
+    font-size: 14px;
+}
