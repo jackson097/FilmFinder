@@ -49,13 +49,13 @@
                     <form id="login-form" class="form" method="POST" action="{% url 'login' %}">{% csrf_token %}      
                         <!-- Email -->
                         <div class="validate-input form-floating py-0" data-validate="Email is required">
-                            <input type="email" class="form-control login_field login" id="{{ form.username.id_for_label }}" name="{{ form.username.html_name }}" placeholder="name@example.com" required>
+                            <input type="email" class="form-control form-style login_field login" id="{{ form.username.id_for_label }}" name="{{ form.username.html_name }}" placeholder="name@example.com" required>
                             <label for="floatingInput">Email</label>
                         </div>
 
                         <!-- Password -->
                         <div id="password_input" class="validate-input form-floating py-0" data-validate="Password is required">
-                            <input type="password" class="form-control login_field pass" id="{{ form.password.id_for_label }}" name="{{ form.password.html_name }}" placeholder="Password" required>
+                            <input type="password" class="form-control form-style login_field pass" id="{{ form.password.id_for_label }}" name="{{ form.password.html_name }}" placeholder="Password" required>
                             <label for="floatingPassword">Password</label>
                         </div>
 

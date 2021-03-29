@@ -1,6 +1,8 @@
 from django import forms
 from django.contrib.auth import get_user_model
 
+from django.forms import ModelForm
+
 User = get_user_model()
 
 class LoginForm(forms.Form):
@@ -42,7 +44,8 @@ class RegisterForm(forms.Form):
             raise forms.ValidationError("Passwords must match")
         return data
 
-class UserUpdateForm(forms.Form):
+class UserUpdateForm(ModelForm):
+    email = forms.EmailField()
     old_password = forms.CharField()
     new_password1 = forms.CharField(widget=forms.PasswordInput)
     new_password2 = forms.CharField(label='Confirm password', widget=forms.PasswordInput)
@@ -63,3 +66,12 @@ class UserUpdateForm(forms.Form):
         if password != password2:
             raise forms.ValidationError("Passwords must match")
         return data
+
+    def save(self, commit=True):
+        user = super(RegistrationForm, self).save(commit=False)
+        user.email = self.cleaned_data['email']
+
+        if commit:
+            user.save()
+
+        return user

@@ -3,6 +3,7 @@ from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from django.contrib.auth import get_user_model
 from django.contrib import messages
+from django.contrib.auth.decorators import login_required
 
 from .forms import LoginForm, RegisterForm, UserUpdateForm
 
@@ -65,19 +66,26 @@ def register_page(request):
 
 def register_genres_page(request):
     return render(request, "accounts/register_genres.html")
-    
+
+@login_required
 def account_page(request):
+    user = User.objects.get(email = request.user)
+
     if request.method == "POST":
-        edit_form = UserUpdateForm(request.POST, instance=request.user)
+        edit_form = UserUpdateForm(request.POST, request.FILES, instance=user)
+        
         if edit_form.is_valid():
-            edit_form.save()
+            form = edit_form.save(commit=False)
+            form.user = request.user
+            form.save()
             messages.success(request, "Your profile has been updated!")
             return redirect('account')
     else:
-        edit_form = UserUpdateForm()
+        edit_form = UserUpdateForm(instance=user)
 
     context = {
         "title": "My Account",
+        "form": edit_form,
     }
 
     return render(request, "accounts/account.html", context)

@@ -44,22 +44,22 @@
                     <form id="register-form" class="form" method="POST">{% csrf_token %}      
                         <!-- Email -->
                         <div class="validate-input form-floating py-0" data-validate="Email is required">
-                            <input type="email" class="form-control register_field register" id="{{ form.username.id_for_label }}" name="{{ form.username.html_name }}" placeholder="name@example.com" required>
+                            <input type="email" class="form-control form-style register_field register" id="{{ form.username.id_for_label }}" name="{{ form.username.html_name }}" placeholder="name@example.com" required>
                             <label for="floatingInput">Email</label>
                         </div>
                         <!-- Full name -->
                         <div class="validate-input form-floating py-0" data-validate="Full name is required">
-                            <input type="text" class="form-control register_field pass2" id="{{ form.full_name.id_for_label }}" name="{{ form.full_name.html_name }}" placeholder="Full Name" required>
+                            <input type="text" class="form-control form-style register_field pass2" id="{{ form.full_name.id_for_label }}" name="{{ form.full_name.html_name }}" placeholder="Full Name" required>
                             <label for="floatingInput">Full Name</label>
                         </div>
                         <!-- Password -->
                         <div class="validate-input form-floating py-0" data-validate="Password is required">
-                            <input type="password" class="form-control register_field pass2" id="{{ form.password.id_for_label }}" name="{{ form.password.html_name }}" placeholder="Password" required>
+                            <input type="password" class="form-control form-style register_field pass2" id="{{ form.password.id_for_label }}" name="{{ form.password.html_name }}" placeholder="Password" required>
                             <label for="floatingPassword">Password</label>
                         </div>
                         <!-- Confirm Password -->
                         <div class="validate-input form-floating py-0" data-validate="Confirm password is required">
-                            <input type="password" class="form-control register_field pass" id="{{ form.password2.id_for_label }}" name="{{ form.password2.html_name }}" placeholder="Password" required>
+                            <input type="password" class="form-control form-style register_field pass" id="{{ form.password2.id_for_label }}" name="{{ form.password2.html_name }}" placeholder="Password" required>
                             <label for="floatingPassword">Confirm Password</label>
                         </div>
                         <!-- Next Button -->

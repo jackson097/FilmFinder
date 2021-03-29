@@ -211,7 +211,7 @@ input[type=text]:focus {
     color: red;
 }
 
-.form-control {
+.form-style {
     width: 75vh;
 }
 
@@ -308,4 +308,78 @@ input[type=text]:focus {
 .top_movie_card {
     background-color: rgba(0, 0, 0, 0.4);
     border-radius: 0px 0px 10px 10px;
+}
+
+/* ----------------- Account ----------------- */
+.account_div {
+    background: rgba(255, 255, 255, 0.08);
+    border-radius: 20px;    
+}
+
+.account_button {
+    color: white;
+    background-color: red;
+    border-radius: 10px;
+    width: 100%;
+}
+
+.account_button:hover {
+    background-color: darkred;
+    color: white;
+}
+
+.edit_button {
+    border: none;
+    border-radius: 8px;
+    background-color: rgba(255, 255, 255, 0.3);
+    color: white;
+    width: 100%;
+    font-size: 13px;
+}
+
+.account_field:disabled {
+    background-color: transparent !important;
+    border: none;
+    color: white;
+    font-weight: 500;
+}
+
+.account_field {
+    font-weight: 500;
+}
+
+.account_subtitle {
+    color: #A7A7A7;
+    font-size: 14px;
+}
+
+.name {
+    color: white;
+    font-size: 20px;
+    font-weight: 500;
+}
+
+.account_avatar {
+    display: flex;
+    background-color: white;
+    justify-content: center;
+    align-items: center;
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    overflow: hidden;
+    float: left;
+    border-style: double;
+    border-color: white;
+}
+
+.pencil {
+    position: relative;
+    top: 0;
+    right: 20px;
+}
+
+.avatar_container {
+    cursor: pointer;
+    position: relative;
 }
