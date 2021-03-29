@@ -300,3 +300,9 @@ input[type=text]:focus {
     color: white;
     font-size: 15px;
 }
+
+/* ----------------- Top Movies ----------------- */
+.top_movie_card {
+    background-color: rgba(0, 0, 0, 0.4);
+    border-radius: 0px 0px 10px 10px;
+}

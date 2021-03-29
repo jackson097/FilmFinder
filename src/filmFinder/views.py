@@ -85,12 +85,25 @@ def top_movies_page(request):
 
     reception = Reception.objects.all()
     movies = MovieGenre.objects.all()
+    background = Background.objects.all()
 
-    top_movie_ids = reception.filter(avgRatings__gte=1).order_by('-avgRatings', '-numRatings')
+    top_movie_ids = reception.filter(avgRatings__gte=8).order_by('-avgRatings', '-numRatings')
     top_movies = []
 
     for movie in top_movie_ids:
-        top_movies.append(movie)
+        # Release date
+        try:
+            release = background.get(movie_id=movie.movie_id).releaseDate
+        except Background.DoesNotExist:
+            release = None
+
+        # Length
+        try:
+            length =  background.get(movie_id=movie.movie_id).length
+        except Background.DoesNotExist:
+            length = None
+
+        top_movies.append([movie, reception.get(movie_id=movie.movie_id.movie_id).avgRatings, release, length])
 
     context = {
         "title": "Top Movies",
