@@ -12,7 +12,6 @@ from .models import User, get_filename_ext, upload_image_path
 
 User = get_user_model()
 
-
 def login_page(request):
     form = LoginForm(request.POST or None)
     context = {
@@ -38,8 +37,12 @@ def register_page(request):
     form = RegisterForm(request.POST or None)
     context = {
         "form":form,
-        "title":"Register"
+        "title":"Register",
     }
+
+    print(form.is_valid())
+    print(form.errors)
+
     if form.is_valid():
         username = form.cleaned_data.get("username")
         full_name = form.cleaned_data.get("full_name")
@@ -48,6 +51,7 @@ def register_page(request):
 
         qs = User.objects.filter(email=username)
         if qs.exists():
+            print('here')
             messages.error(request, "Email is taken")
         
         if len(password) < 5:
@@ -55,8 +59,8 @@ def register_page(request):
             return redirect('register')
 
         elif password != password2:
-           messages.error(request, "Passwords must be the same")
-           return redirect('register')
+            messages.error(request, "Passwords must be the same")
+            return redirect('register')
 
         elif not qs.exists():
             # Below will need to be modified when we add genres as an option
@@ -105,8 +109,8 @@ def account_page(request):
             # form.save()
             # messages.success(request, "Your profile has been updated!")
         return redirect('account')
-    else:
-        edit_form = UserUpdateForm(instance=user)
+    # else:
+    #     edit_form = UserUpdateForm(instance=user)
 
     context = {
         "title": "My Account",

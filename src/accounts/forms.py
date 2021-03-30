@@ -15,10 +15,10 @@ class LoginForm(forms.Form):
         fields  = ('email', 'password')
 
 class RegisterForm(forms.Form):
-    username    = forms.EmailField()
-    full_name   = forms.CharField()
-    password    = forms.CharField(widget=forms.PasswordInput)
-    password2   = forms.CharField(label='Confirm password', widget=forms.PasswordInput)
+    username    = forms.EmailField(widget=forms.EmailInput(attrs={'id':'username', 'name':'username'}), required=True)
+    full_name   = forms.CharField(widget=forms.TextInput(attrs={'id':'full_name', 'name':'full_name'}), required=True)
+    password    = forms.CharField(widget=forms.PasswordInput(attrs={'id':'password', 'name':'password'}), required=True)
+    password2   = forms.CharField(label='Confirm password', widget=forms.PasswordInput(attrs={'id':'password2', 'name':'password2'}), required=True)
     
     def clean_email(self):
         username = self.cleaned_data.get("username")
@@ -40,8 +40,8 @@ class RegisterForm(forms.Form):
         data = self.cleaned_data
         password = self.cleaned_data.get("password")
         password2 = self.cleaned_data.get("password2")
-        if password != password2:
-            raise forms.ValidationError("Passwords must match")
+        # if password != password2:
+        #     raise forms.ValidationError("Passwords must match")
         return data
 
 class UserUpdateForm(ModelForm):
