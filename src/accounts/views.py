@@ -40,9 +40,6 @@ def register_page(request):
         "title":"Register",
     }
 
-    print(form.is_valid())
-    print(form.errors)
-
     if form.is_valid():
         username = form.cleaned_data.get("username")
         full_name = form.cleaned_data.get("full_name")
@@ -51,7 +48,6 @@ def register_page(request):
 
         qs = User.objects.filter(email=username)
         if qs.exists():
-            print('here')
             messages.error(request, "Email is taken")
         
         if len(password) < 5:

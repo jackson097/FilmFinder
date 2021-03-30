@@ -62,13 +62,6 @@
                             <input type="password" class="form-control form-style register_field pass" id="{{ form.password2.id_for_label }}" name="{{ form.password2.html_name }}" placeholder="Password" required>
                             <label for="floatingPassword">Confirm Password</label>
                         </div>
-                        <!-- Next Button -->
-                        <div class="row pt-4">
-                            <div class="col-12 d-flex align-top">
-                                <button type="submit" class="btn btn-default login-button">Next</button> 
-                            </div>
-                        </div>
-
                         <!-- Error messages -->
                         <div class="row">
                             <div class="col-12" style="color: red;">
@@ -79,6 +72,14 @@
                                 {% endif %}
                             </div>
                         </div>
+                        <!-- Next Button -->
+                        <div class="row pt-4">
+                            <div class="col-12 d-flex align-top">
+                                <button type="submit" class="btn btn-default login-button">Next</button> 
+                            </div>
+                        </div>
+
+                        
                     </form>
                 </div>
             </div>
