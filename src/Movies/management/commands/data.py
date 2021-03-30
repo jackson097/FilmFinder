@@ -34,23 +34,20 @@ class Command(BaseCommand):
                 release = row[9]
                 actors = row[10].strip("[]").strip("")
                 genres = row[11].strip("[]").strip("")
-                Moviecreated, created = Movie.objects.get_or_create(title=title)
-                # print("qwe: " + Moviecreated.title)
+
+                Moviecreated, created = Movie.objects.get_or_create(title=title, image=poster_url, overview=overview, temp_id=temp_id, backdrop=backdrop)
+                _, ReceptionCreated = Reception.objects.get_or_create(movie_id=Moviecreated, avgRatings=row[5], numRatings=int(numRatings))
+                _, BackgroundCreated = Background.objects.get_or_create(movie_id=Moviecreated, releaseDate=release, length=duration)
 
                 for genre in genres.split(", "):
                     Genrecreated, created = Genre.objects.get_or_create(genre_title=genre.strip("/'"))
                     if Genrecreated.genre_title in genres:
                         _, movieGenreCreated = MovieGenre.objects.get_or_create(movie_id=Moviecreated, genre_id=Genrecreated)
 
-                # for actor in actors.split(", "):
-                #     Personcreated, created = Person.objects.get_or_create(name=actor.strip("/'"))
-                #     if Personcreated.name in actors:
-                #         _, moviePersonCreated = MoviePerson.objects.get_or_create(movie_id=Moviecreated, person_id=Personcreated)
-                        # print("title: {}, person: {}".format(title, Personcreated.name))
+                for actor in actors.split(", "):
+                    Personcreated, created = Person.objects.get_or_create(name=actor.strip("/'"))
+                    if Personcreated.name in actors:
+                        _, moviePersonCreated = MoviePerson.objects.get_or_create(movie_id=Moviecreated, person_id=Personcreated)
+                        print("title: {}, person: {}".format(title, Personcreated.name))
 
-                # print(overview)
-                # print(release)
-                # Moviecreated, created = Movie.objects.get_or_create(title=title, image=poster_url, overview=overview, temp_id=temp_id, backdrop=backdrop)
-                # _, ReceptionCreated = Reception.objects.get_or_create(movie_id=Moviecreated, avgRatings=row[5], numRatings=int(numRatings))
-                # _, BackgroundCreated = Background.objects.get_or_create(movie_id=Moviecreated, releaseDate=release, length=duration)
-                # _, created = MovieGenre.objects.get_or_create(movie_id=Moviecreated, genre_id=row[0])
+                

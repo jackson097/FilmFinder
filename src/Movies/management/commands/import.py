@@ -11,7 +11,7 @@ class Command(BaseCommand):
     def handle(self, *args, **options):
         row_names = ['movie_id', 'movie_url']
         with open('data/movie_url.csv', 'r', newline='') as in_csv:
-            head = [next(in_csv) for x in range(10)]
+            head = [next(in_csv) for x in range(100)]
             reader = csv.DictReader(head, fieldnames=row_names, delimiter=',')
             for row in reader:
                 movie_id = row['movie_id']
@@ -24,7 +24,6 @@ class Command(BaseCommand):
                     try:
                         
                         image_url = soup.find('div', class_='poster').a.img['src']
-                        # TODO: Replace hardcoded extension with extension from string itself
                         extension = '.jpg'
                         image_url = ''.join(image_url.partition('_')[0]) + extension
                         filename = 'img/' + movie_id + extension
@@ -52,7 +51,7 @@ class Command(BaseCommand):
                         with open('data/movie_data.csv', 'a', newline='') as out_csv:
                             writer = csv.writer(out_csv, delimiter=',')
                             writer.writerow([movie_id, title[:-7], image_url, str(description).strip(), imdbID, avgRating, numRating, str(duration).strip(), backdrop, releaseDate, actors, genres])
-                   
+                        print("{} {} {} {} {} {} {} {} {} {}".format(movie_id, title[:-7], image_url, str(description).strip(), imdbID, avgRating, numRating, str(duration).strip(), backdrop, releaseDate, actors, genres))
                     # Ignore cases where no poster image is present
                     except AttributeError:
                         pass
