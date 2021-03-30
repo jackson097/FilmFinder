@@ -46,6 +46,7 @@ class RegisterForm(forms.Form):
 
 class UserUpdateForm(ModelForm):
     email = forms.EmailField()
+    full_name = forms.CharField(widget=forms.TextInput(attrs={"class": 'form-control account_field px-0 py-1',"id": "full_name_box", "name": "full_name"}))
     old_password = forms.CharField()
     new_password1 = forms.CharField(widget=forms.PasswordInput)
     new_password2 = forms.CharField(label='Confirm password', widget=forms.PasswordInput)
