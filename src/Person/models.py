@@ -3,7 +3,7 @@ from Jobs.models import Job
 
 class Person(models.Model):
     person_id   = models.AutoField(primary_key=True)
-    name        = models.CharField(max_length=120, blank=True, null=True)
+    name        = models.CharField(max_length=120, blank=True, null=True, unique=True)
     birthYear   = models.CharField(max_length=120, blank=True, null=True)
     DeathYear   = models.CharField(max_length=120, blank=True, null=True)
 
