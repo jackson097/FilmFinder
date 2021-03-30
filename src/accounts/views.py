@@ -79,11 +79,11 @@ def account_page(request):
     if request.method == "POST":
         full_name = request.POST.get('full_name', user.full_name)
         email = request.POST.get('email_form', user.email)
-        image = request.POST.get('image', None)
-        profile = upload_image_path(instance=user, filename=image)
+        # image = request.POST.get('image', None)
+        # profile = upload_image_path(instance=user, filename=image)
         user.full_name = full_name
         user.email = email
-        print("{}, {}, {}".format(full_name, email, profile))
+        print("{}, {}".format(full_name, email))
         user.save()
         # edit_form = UserUpdateForm(request.POST)
         
