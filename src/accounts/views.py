@@ -110,7 +110,7 @@ def account_page(request):
 
     context = {
         "title": "My Account",
-        "form": edit_form,
+        # "form": edit_form,
         "genres": genres,
     }
 
