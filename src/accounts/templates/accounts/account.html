@@ -89,8 +89,8 @@
                                         </div>
                                     </div>
                                 </label>
-                                <form id="edit-form-profile" class="form" method="POST" action="{% url 'account' %}">{% csrf_token %}
-                                    <input id="file-input" name="image" type="file" style="display: none;" onchange="this.form.submit()" />
+                                <form id="edit-form-profile" class="form" method="POST" action="{% url 'account' %}" enctype="multipart/form-data">{% csrf_token %}
+                                   <input id="file-input" name="image" type="file" style="display: none;"  onchange="previewFile(); this.form.submit();"/> <!--   -->
                                 </form>
                             </div>
                             <p class="name mb-0 px-3" style="display: inline-block;">{{ user.full_name }}</p>
