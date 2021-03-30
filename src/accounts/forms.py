@@ -69,7 +69,7 @@ class UserUpdateForm(ModelForm):
         return data
 
     def save(self, commit=True):
-        user = super(RegistrationForm, self).save(commit=False)
+        user = super(UserUpdateForm, self).save(commit=False)
         user.email = self.cleaned_data['email']
 
         if commit:
