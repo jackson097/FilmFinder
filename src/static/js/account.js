@@ -71,23 +71,7 @@ function previewFile() {
   
     if (file) {
       reader.readAsDataURL(file);
-    }
-
-    // $.ajax({
-    //     type: "POST",
-    //     url: "/account/",
-    //     data: {
-    //         "data": $("#file-input").val(),
-    //     },
-    //     success: function(data){
-    //         console.log("success");
-    //         console.log(data);
-    //     },
-    //     failure: function(data){
-    //         console.log("failure");
-    //         console.log(data);
-    //     },
-    // }); 
+    }   
 }
 
 function getGenres() {

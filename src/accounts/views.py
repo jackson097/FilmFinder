@@ -86,7 +86,6 @@ def account_page(request):
         email = request.POST.get('email_form', user.email)
         new_genres = request.POST.get('genre_form', user.genres)
         image = request.FILES.get('image', user.profile_pic)
-        print(image)
         user.genres = new_genres
         user.full_name = full_name
         user.email = email

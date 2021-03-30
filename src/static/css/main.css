@@ -353,16 +353,16 @@ input[type=text]:focus {
     background-color: transparent !important;
     border: none;
     color: white;
-    font-weight: 500;
 }
 
 .account_field {
-    font-weight: 500;
+    font-weight: normal;
 }
 
 .account_subtitle {
     color: #A7A7A7;
     font-size: 14px;
+    font-weight: 500;
 }
 
 .name {
@@ -382,7 +382,7 @@ input[type=text]:focus {
     border-radius: 50%;
     overflow: hidden;
     float: left;
-    border-style: double;
+    border-style: double !important;
     border-color: white;
     cursor: pointer;
 }
