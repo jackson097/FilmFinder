@@ -66,7 +66,12 @@ def register_page(request):
 
 
 def register_genres_page(request):
-    return render(request, "accounts/register_genres.html")
+    genres = Genre.objects.all()
+    context = {
+        "title": "Select Genres",
+        "genres": genres
+    }
+    return render(request, "accounts/register_genres.html", context)
 
 @login_required
 def account_page(request):
