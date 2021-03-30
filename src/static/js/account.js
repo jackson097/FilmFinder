@@ -95,3 +95,11 @@ if (direction == "portrait" || direction == "even") {
 
 edit(document.getElementById("edit_name"), document.getElementById("full_name_box"))
 edit(document.getElementById("edit_email"), document.getElementById("email_box"))
+
+console.log(errors);
+
+if (errors) {
+    $(document).ready(function($) {
+        $('#passwordModal').modal('show');
+    });
+}

@@ -7,6 +7,7 @@ from django.contrib.auth.decorators import login_required
 from django.views.decorators.csrf import csrf_exempt
 
 from .forms import LoginForm, RegisterForm, UserUpdateForm
+from django.contrib.auth.forms import PasswordChangeForm
 from Genres.models import Genre
 from .models import User, get_filename_ext, upload_image_path
 
@@ -82,35 +83,52 @@ def account_page(request):
     user = User.objects.get(email = request.user)
 
     if request.method == "POST":
-        full_name = request.POST.get('full_name', user.full_name)
-        email = request.POST.get('email_form', user.email)
-        new_genres = request.POST.get('genre_form', user.genres)
-        image = request.FILES.get('image', user.profile_pic)
-        user.genres = new_genres
-        user.full_name = full_name
-        user.email = email
-        user.profile_pic = image
-        print("{}, {}".format(full_name, email))
-        user.save()
-        # edit_form = UserUpdateForm(request.POST)
-        
-        # if edit_form.is_valid():
-        #     print("qwe")
-        #     user = User()
-        #     user.full_name = edit_form.cleaned_data['full_name']
+        if ('change_pass' in request.POST):
+            form = PasswordChangeForm(request.user, request.POST)
 
-            # user.save()
-            # form = edit_form.save(commit=False)
-            # form.user = request.user
-            # form.save()
-            # messages.success(request, "Your profile has been updated!")
-        return redirect('account')
-    # else:
+            print(form.is_valid)
+            print(form.errors)
+
+            if form.is_valid():
+                user = form.save()
+                update_session_auth_hash(request, user)  # Important!
+                messages.success(request, 'Your password was successfully updated!')
+                return redirect('account')
+            else:
+                messages.error(request, 'Please correct the error below.')
+
+        else:
+            full_name = request.POST.get('full_name', user.full_name)
+            email = request.POST.get('email_form', user.email)
+            new_genres = request.POST.get('genre_form', user.genres)
+            image = request.FILES.get('image', user.profile_pic)
+            user.genres = new_genres
+            user.full_name = full_name
+            user.email = email
+            user.profile_pic = image
+            print("{}, {}".format(full_name, email))
+            user.save()
+            # edit_form = UserUpdateForm(request.POST)
+            
+            # if edit_form.is_valid():
+            #     print("qwe")
+            #     user = User()
+            #     user.full_name = edit_form.cleaned_data['full_name']
+
+                # user.save()
+                # form = edit_form.save(commit=False)
+                # form.user = request.user
+                # form.save()
+                # messages.success(request, "Your profile has been updated!")
+            return redirect('account')
+    else:
+        form = PasswordChangeForm(request.user)
     #     edit_form = UserUpdateForm(instance=user)
 
     context = {
         "title": "My Account",
         # "form": edit_form,
+        "form": form,
         "genres": genres,
     }
 
