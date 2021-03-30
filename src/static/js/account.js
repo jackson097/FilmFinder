@@ -89,6 +89,16 @@ function previewFile() {
     }); 
 }
 
+function getGenres() {
+    var genres = document.getElementsByClassName('choose_genre selected');
+
+    for (i = 0; i < genres.length; i++) {
+        document.getElementById("genre_box").value += genres[i].innerHTML + ",";
+    }
+
+    console.log(document.getElementById("genre_box").value)
+}
+
 var profile_pic = document.getElementById('profile_pic')
 var direction = getImgOrientation(profile_pic);
 

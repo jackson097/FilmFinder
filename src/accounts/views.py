@@ -84,8 +84,10 @@ def account_page(request):
     if request.method == "POST":
         full_name = request.POST.get('full_name', user.full_name)
         email = request.POST.get('email_form', user.email)
+        new_genres = request.POST.get('genre_form', user.genres)
         # image = request.POST.get('image', None)
         # profile = upload_image_path(instance=user, filename=image)
+        user.genres = new_genres
         user.full_name = full_name
         user.email = email
         print("{}, {}".format(full_name, email))
