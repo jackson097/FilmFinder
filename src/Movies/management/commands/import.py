@@ -37,15 +37,21 @@ class Command(BaseCommand):
                         backdrop = soup.find('div', class_='slate').a.img['src']
                         releaseDate = soup.find('div', class_='title_wrapper').h1.span.a.get_text()
                         actorsRow = soup.find('div', class_='plot_summary').find_all('div')[3].find_all('a')
+
                         actors = []
                         for actor in actorsRow:
                             actors.append(actor.get_text())
                         actors = actors[:-1]
-                        print(actors)
+
+                        genres = []
+                        genresRow = soup.find('div', class_='subtext').find_all('a')
+                        for genre in genresRow:
+                            genres.append(genre.get_text())
+                        genres = genres[:-1]
 
                         with open('data/movie_data.csv', 'a', newline='') as out_csv:
                             writer = csv.writer(out_csv, delimiter=',')
-                            writer.writerow([movie_id, title[:-7], image_url, str(description).strip(), imdbID, avgRating, numRating, str(duration).strip(), backdrop, releaseDate, actors])
+                            writer.writerow([movie_id, title[:-7], image_url, str(description).strip(), imdbID, avgRating, numRating, str(duration).strip(), backdrop, releaseDate, actors, genres])
                    
                     # Ignore cases where no poster image is present
                     except AttributeError:

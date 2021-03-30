@@ -6,6 +6,7 @@ from bs4 import BeautifulSoup
 from datetime import datetime
 
 from Movies.models import Movie, MovieGenre, MoviePerson
+from Genres.models import Genre
 from filmFinder.settings import tmbd_api_key
 from Reception.models import Reception
 from Background.models import Background
@@ -32,14 +33,19 @@ class Command(BaseCommand):
                 backdrop = row[8]
                 release = row[9]
                 actors = row[10].strip("[]").strip("")
-
+                genres = row[11].strip("[]").strip("")
                 Moviecreated, created = Movie.objects.get_or_create(title=title)
                 # print("qwe: " + Moviecreated.title)
 
-                for actor in actors.split(", "):
-                    Personcreated, created = Person.objects.get_or_create(name=actor.strip("/'"))
-                    if Personcreated.name in actors:
-                        _, moviePersonCreated = MoviePerson.objects.get_or_create(movie_id=Moviecreated, person_id=Personcreated)
+                for genre in genres.split(", "):
+                    Genrecreated, created = Genre.objects.get_or_create(genre_title=genre.strip("/'"))
+                    if Genrecreated.genre_title in genres:
+                        _, movieGenreCreated = MovieGenre.objects.get_or_create(movie_id=Moviecreated, genre_id=Genrecreated)
+
+                # for actor in actors.split(", "):
+                #     Personcreated, created = Person.objects.get_or_create(name=actor.strip("/'"))
+                #     if Personcreated.name in actors:
+                #         _, moviePersonCreated = MoviePerson.objects.get_or_create(movie_id=Moviecreated, person_id=Personcreated)
                         # print("title: {}, person: {}".format(title, Personcreated.name))
 
                 # print(overview)
