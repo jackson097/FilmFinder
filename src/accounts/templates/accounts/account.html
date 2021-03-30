@@ -70,7 +70,6 @@
                         {% endif %}
                     </div>
                 </div>
-                <form id="edit-form" class="form" method="POST" action="{% url 'account' %}">{% csrf_token %}
                     <!-- Profile picture and name -->
                     <div class="row px-3 pb-2 pt-5">
                         <div class="col-12 d-flex align-items-center">
@@ -90,8 +89,9 @@
                                         </div>
                                     </div>
                                 </label>
-                                <input id="file-input" name="image" type="file" style="display: none;"
-                                    onchange="previewFile()" />
+                                <form id="edit-form-profile" class="form" method="POST" action="{% url 'account' %}">{% csrf_token %}
+                                    <input id="file-input" name="image" type="file" style="display: none;" onchange="this.form.submit()" />
+                                </form>
                             </div>
                             <p class="name mb-0 px-3" style="display: inline-block;">{{ user.full_name }}</p>
                         </div>
@@ -106,14 +106,16 @@
                                 </div>
                             </div>
                             <div class="row d-flex align-content-center justify-content-center">
-                                <div class="col-10">
-                                    <input type="text" class="form-control account_field px-0 py-1" id="full_name_box"
-                                        name="{{ form.full_name.html_name }}" value="{{ user.full_name }}" disabled>
-                                </div>
-                                <div class="col-2 d-flex align-content-center justify-content-center">
-                                    <button id="edit_name" type="button" class="edit_button py-1 align-self-center"
-                                        style="width: 100%;" value="Edit">Edit</button>
-                                </div>
+                                <form id="edit-form-name" class="form" method="POST" action="{% url 'account' %}">{% csrf_token %}
+                                    <div class="col-10">
+                                        <input type="text" class="form-control account_field px-0 py-1" id="full_name_box"
+                                            name="full_name" value="{{ user.full_name }}" disabled>
+                                    </div>
+                                    <div class="col-2 d-flex align-content-center justify-content-center">
+                                        <button id="edit_name" type="button" class="edit_button py-1 align-self-center"
+                                            style="width: 100%;" value="Edit" form="edit-form-name">Edit</button>
+                                    </div>
+                                </form>
                             </div>
                             <!-- Email -->
                             <div class="row pt-4">
@@ -122,14 +124,16 @@
                                 </div>
                             </div>
                             <div class="row d-flex align-content-center justify-content-center">
-                                <div class="col-10">
-                                    <input type="email" class="form-control account_field px-0 py-1" id="email_box"
-                                        name="{{ form.email.html_name }}" value="{{ user.email }}" disabled>
-                                </div>
-                                <div class="col-2 d-flex align-content-center justify-content-center">
-                                    <button id="edit_email" type="button" class="edit_button py-1 align-self-center"
-                                        style="width: 100%;" value="Edit">Edit</button>
-                                </div>
+                                <form id="edit-form-email" class="form" method="POST" action="{% url 'account' %}">{% csrf_token %}
+                                    <div class="col-10">
+                                        <input type="email" class="form-control account_field px-0 py-1" id="email_box"
+                                            name="email_form" value="{{ user.email }}" disabled>
+                                    </div>
+                                    <div class="col-2 d-flex align-content-center justify-content-center">
+                                        <button id="edit_email" type="button" class="edit_button py-1 align-self-center"
+                                            style="width: 100%;" value="Edit" form="edit-form-email">Edit</button>
+                                    </div>
+                                </form>
                             </div>
                             <!-- Password -->
                             <div class="row pt-4">
@@ -179,7 +183,6 @@
                             {% endfor %}
                         </div>
                     </div>
-            </form>
             <div class="row d-flex align-content-center pt-4 pb-4 px-0">
                 <div class="col-6 d-flex justify-content-end ps-0">
                     <button type="submit" class="btn btn-default account_button py-2" form="edit-form">Done</button>

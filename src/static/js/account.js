@@ -3,9 +3,29 @@ function edit(button, input) {
         if (button.innerHTML == "Edit") {
             input.disabled = false;
             button.innerHTML ="Done";
+            
         } else {
-            input.disabled = true;
+            // $.ajax({
+            //     type: "POST",
+            //     url: "/account/",
+            //     data: {
+            //         "data": $("#full_name_box").val(),
+            //     },
+            //     success: function(data){
+            //         console.log("success");
+            //         console.log(data);
+            //     },
+            //     failure: function(data){
+            //         console.log("failure");
+            //         console.log(data);
+            //     },
+            // });
+            document.getElementById("full_name_box").readOnly = true;
+            document.getElementById("email_box").readOnly = true;
             button.innerHTML ="Edit";
+            button.removeAttribute("type")
+            button.setAttribute("type","submit")
+            // input.disabled = true;
         }
     });
 }
@@ -43,8 +63,23 @@ function previewFile() {
   
     if (file) {
       reader.readAsDataURL(file);
-    } 
-  }
+    }
+    $.ajax({
+        type: "POST",
+        url: "/account/",
+        data: {
+            "data": $("#file-input").val(),
+        },
+        success: function(data){
+            console.log("success");
+            console.log(data);
+        },
+        failure: function(data){
+            console.log("failure");
+            console.log(data);
+        },
+    }); 
+}
 
 var profile_pic = document.getElementById('profile_pic')
 var direction = getImgOrientation(profile_pic);

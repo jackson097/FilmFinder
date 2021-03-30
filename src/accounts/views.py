@@ -4,9 +4,11 @@ from django.shortcuts import render, redirect
 from django.contrib.auth import get_user_model
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+from django.views.decorators.csrf import csrf_exempt
 
 from .forms import LoginForm, RegisterForm, UserUpdateForm
 from Genres.models import Genre
+from .models import User, get_filename_ext, upload_image_path
 
 User = get_user_model()
 
@@ -68,20 +70,34 @@ def register_page(request):
 def register_genres_page(request):
     return render(request, "accounts/register_genres.html")
 
+@csrf_exempt
 @login_required
 def account_page(request):
     genres = Genre.objects.all()
     user = User.objects.get(email = request.user)
 
     if request.method == "POST":
-        edit_form = UserUpdateForm(request.POST, request.FILES, instance=user)
+        full_name = request.POST.get('full_name', user.full_name)
+        email = request.POST.get('email_form', user.email)
+        image = request.POST.get('image', None)
+        profile = upload_image_path(instance=user, filename=image)
+        user.full_name = full_name
+        user.email = email
+        print("{}, {}, {}".format(full_name, email, profile))
+        user.save()
+        # edit_form = UserUpdateForm(request.POST)
         
-        if edit_form.is_valid():
-            form = edit_form.save(commit=False)
-            form.user = request.user
-            form.save()
-            messages.success(request, "Your profile has been updated!")
-            return redirect('account')
+        # if edit_form.is_valid():
+        #     print("qwe")
+        #     user = User()
+        #     user.full_name = edit_form.cleaned_data['full_name']
+
+            # user.save()
+            # form = edit_form.save(commit=False)
+            # form.user = request.user
+            # form.save()
+            # messages.success(request, "Your profile has been updated!")
+        return redirect('account')
     else:
         edit_form = UserUpdateForm(instance=user)
 
