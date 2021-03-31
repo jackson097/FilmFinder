@@ -70,6 +70,7 @@ def register_page(request):
 
 def register_genres_page(request):
     genres = Genre.objects.all()
+    selected_genres = []
     context = {
         "title": "Select Genres",
         "genres": genres
