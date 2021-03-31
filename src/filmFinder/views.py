@@ -5,6 +5,7 @@
 from django.contrib.auth import authenticate, login
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
+from django.db.models import Q
 import urllib.parse
 
 from Movies.models import Movie, MovieGenre, MoviePerson
@@ -60,6 +61,11 @@ def results_page(request):
     search_query = urllib.parse.unquote(request.GET.urlencode().split("=",1)[1])
     search_query = search_query.replace("+", " ")
 
+    query = request.GET.get("search", None)
+    print(query)
+
+    movies = Movie.objects.filter(title__icontains=query)
+
     # Update recent searches
     if (search_query.isspace() == False and search_query != ""):
         previous_searches = request.user.recent_searches
@@ -73,11 +79,12 @@ def results_page(request):
     context = {
         "title":"Search results for " + search_query,
         "search_query":search_query,
+        "movies": movies
         # Movie results
     }
 
     # Find movies
-
+    print(movies)
 
     return render(request, "results.html", context)
 

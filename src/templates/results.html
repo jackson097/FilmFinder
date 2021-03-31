@@ -29,12 +29,49 @@
         </div>
     </div>
     <!-- Filters -->
-    <div clas="col-3">
-        
+    <div class="col-3" style="text-align: end;">
+        <div class="dropdown">
+            <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false" style="background-color: transparent; color: white;" >
+              Sort Movies
+            </button>
+            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+              <li><a class="dropdown-item" href="#">Sort by Relevance</a></li>
+              <li><a class="dropdown-item" href="#">Sort by Title</a></li>
+              <li><a class="dropdown-item" href="#">Sort by Rating</a></li>
+            </ul>
+          </div>
     </div>
 </div>
 
-<div class ="row">
-    
+<div class ="pb-5">
+    {% for movie in movies%}
+    {% if forloop.counter0|divisibleby:6 %}
+    <div class="row pt-3">
+    {% endif %}
+        <div class="col-2 px-3 movie_result">
+            <div class="row">
+                <div class="col-12">
+                    <a style="width: 100%;">
+                        <img src="{{movie.image}}" class="mx-auto justify-content-center" style="width: inherit; border-radius: 10px">
+                    </a>
+                </div>
+            </div>
+            <div class="top_movie_card">
+                <div class="row pt-1">
+                    <div class="col-12 text-center" style="color:white; font-weight: 500; font-size:14px;">
+                        {{ movie.0.movie_id.title }}
+                    </div>
+                </div>
+                <!-- <div class="row pb-1">
+                    <div class="col-12 text-center" style="color:white; font-size: 13px;">
+                        {{ movies.2 }} ‧ {{ movies.3 }} ‧ {{ movies.1 }}/10.0
+                    </div>
+                </div> -->
+            </div>
+        </div>
+    {% if forloop.counter|divisibleby:6 %}
+    </div>
+    {% endif %}
+    {% endfor %}
 </div>
 {% endblock %}
