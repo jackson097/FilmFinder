@@ -26,7 +26,7 @@
     </head>
     <body class="bg-dark">
         <div style="background-image: url('../../../static/images/Background.jpg');" class="container-fluid text-center pt-3 min-vh-100 d-flex flex-column justify-content-center align-items-center">
-            <form id="box" class="genres_box col-6 box p-4 flex-grow-15" method="POST">{% csrf_token %}
+            <div id="box" class="col-6 box p-4 flex-grow-15">
                 <div class="row pb-3">
                     <div class="header">
                         <h5 class="title">Select your favourite genres:</h5>
@@ -45,12 +45,13 @@
                                 {% endfor %}
                     </div>
                 </div>
-            </form>
-        </div>
-        <div class="row">
-            <div class="col-12 pt-2 d-flex align-top">
-                <br><button type="submit" class="btn btn-default login-button" form="genres_box">Search for movies!</button> 
             </div>
+        </div>
+        <div class="row pt-2">
+            <form id="edit-form-genre" class="form" method="POST" action="{% url 'register_genres' %}">{% csrf_token %}
+                <input type="text" class="form-control" id="genre_box" name="genre_form" style="display: none;">
+                <button type="submit" class="btn save login-button" form="edit-form-genre" onclick="getGenres()">Save changes</button>
+            </form>
         </div>
 
         <!-- Javascript -->

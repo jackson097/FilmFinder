@@ -60,9 +60,15 @@ def register_page(request):
             return redirect('register')
 
         elif not qs.exists():
-            # Below will need to be modified when we add genres as an option
+            # Create user
             new_user = User.objects.create_user(username, full_name, password)
-            return redirect('register_genres')  
+            # Get info from form and sign in
+            email = form.cleaned_data.get("username")
+            password = form.cleaned_data.get("password")
+            user = authenticate(request, username=email, password=password)
+            login(request, user)
+
+            return redirect('register_genres')
             print(new_user)
 
     return render(request, "accounts/register.html", context)
@@ -70,12 +76,22 @@ def register_page(request):
 
 def register_genres_page(request):
     genres = Genre.objects.all()
-    selected_genres = []
+    user = User.objects.get(email = request.user)
+
+    if request.method == "POST":
+        new_genres = request.POST.get('genre_form', user.genres)
+        user.genres = new_genres
+        user.save()
+        # Go to main page
+        return redirect('index')
+        
     context = {
         "title": "Select Genres",
         "genres": genres
     }
+
     return render(request, "accounts/register_genres.html", context)
+
 
 @csrf_exempt
 @login_required
