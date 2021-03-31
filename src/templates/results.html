@@ -51,7 +51,7 @@
         <div class="col-2 px-3 movie_result">
             <div class="row">
                 <div class="col-12">
-                    <a style="width: 100%;">
+                    <a href="{% url 'movie' movie.movie_id %}" style="width: 100%;">
                         <img src="{{movie.image}}" class="mx-auto justify-content-center" style="width: inherit; border-radius: 10px">
                     </a>
                 </div>

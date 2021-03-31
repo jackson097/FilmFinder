@@ -14,6 +14,7 @@ from accounts.forms import LoginForm
 from Reception.models import Reception
 from Background.models import Background
 from Person.models import Person
+from accounts.models import User
 
 def home_page(request):
     movies = Movie.objects.all() 
@@ -64,6 +65,8 @@ def results_page(request):
     query = request.GET.get("search", None)
     print(query)
 
+    user = User.objects.get(email = request.user)
+
     movies = Movie.objects.filter(title__icontains=query)
 
     # Update recent searches
@@ -73,8 +76,10 @@ def results_page(request):
         if (previous_searches == None):
             previous_searches = ""
 
-        request.user.recent_searches = search_query + "," + previous_searches
-        request.user.save()
+        # request.user.recent_searches = search_query + "," + previous_searches
+        # request.user.save()
+        user.recent_searches = search_query + "," + previous_searches
+        user.save()
 
     context = {
         "title":"Search results for " + search_query,
