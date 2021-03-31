@@ -5,6 +5,7 @@ from django.contrib.auth import get_user_model
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.csrf import csrf_exempt
+from django.contrib.auth import update_session_auth_hash
 
 from .forms import LoginForm, RegisterForm, UserUpdateForm
 from django.contrib.auth.forms import PasswordChangeForm
