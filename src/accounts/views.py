@@ -50,14 +50,14 @@ def register_page(request):
 
         qs = User.objects.filter(email=username)
         if qs.exists():
-            messages.error(request, "Email is taken")
+            messages.error(request, "An account with this email already exists.")
         
-        if len(password) < 5:
-            messages.error(request, "Passwords must have a length of at least 5")
+        if len(password) < 8:
+            messages.error(request, "This password is too short. It must contain at least 8 characters.")
             return redirect('register')
 
         elif password != password2:
-            messages.error(request, "Passwords must be the same")
+            messages.error(request, "The two password fields didn’t match.")
             return redirect('register')
 
         elif not qs.exists():
