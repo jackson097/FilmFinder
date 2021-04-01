@@ -205,14 +205,14 @@
                     <h5 class="modal-title" id="passwordModalLabel">Change password</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <div class="modal-body pt-0">
+                <div class="modal-body p-4">
                     <form id="edit-form-pass" class="row form" method="POST" >{% csrf_token %}
                         <div class="col-12">
                             {{ form|crispy }}
                         </div>
                     </form>
                 </div>
-                <div class="modal-footer px-0">
+                <div class="modal-footer px-3">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                         <button type="submit" class="btn save" name="change_pass" form="edit-form-pass">Change password</button>
                 </div>
