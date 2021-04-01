@@ -25,7 +25,7 @@
         </div>
 
         <div id="title3" class="d-inline title">
-          {{ movies|length }} {% if movies|length == 1%}Movie{%else%} Movies {%endif%} found
+          {{ movies|length }} {% if movies|length == 1%}movie{%else%} movies {%endif%} found
         </div>
     </div>
     <!-- Filters -->
@@ -59,7 +59,7 @@
             <div class="top_movie_card">
                 <div class="row pt-1">
                     <div class="col-12 text-center" style="color:white; font-weight: 500; font-size:14px;">
-                        {{ movie.0.movie_id.title }}
+                        {{ movie.title }}
                     </div>
                 </div>
                 <!-- <div class="row pb-1">
