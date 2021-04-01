@@ -228,8 +228,9 @@
                     <h5 class="modal-title" id="genreModalLabel">Select your favourite genres:</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <div class="modal-body pt-0">
-                    {% for genre in genres %}
+                <div class="modal-body px-4 pt-4">
+                    <div class="pb-4">
+                        {% for genre in genres %}
                         {% if forloop.counter0|divisibleby:3 %}
                         <div class="row text-center py-2">
                             {% endif %}
@@ -244,6 +245,7 @@
                         </div>
                         {% endif %}
                     {% endfor %}
+                    </div>
                 </div>
                 <div class="modal-footer px-0">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
