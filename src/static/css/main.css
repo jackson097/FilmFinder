@@ -457,3 +457,8 @@ input[type=text]:focus {
 .selected {
     background-color: red !important;
 }
+
+.password-info {
+    font-size: 13px;
+    color: #252525;
+}

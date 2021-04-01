@@ -5,6 +5,7 @@
     <title>{{title}}</title>
 
     {% load static %}
+    {% load crispy_forms_tags %}
 
     <!-- Required meta tags -->
     <meta charset="utf-8">
@@ -194,22 +195,11 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body pt-0">
-                    <div class="row">
-                        <div class="col-12" style="color: red;">
-                            {% if messages %}
-                                {% for message in messages %}
-                                    {{ message }}<br>
-                                {% endfor %}
-                            {% endif %}
+                    <form id="edit-form-pass" class="row form" method="POST" >{% csrf_token %}
+                        <div class="col-12">
+                            {{ form|crispy }}
                         </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-12 pt-4">
-                            <form id="edit-form-pass" class="form" method="POST">{% csrf_token %}
-                                {{ form.as_p }}
-                            </form>
-                        </div>
-                    </div>
+                    </form>
                 </div>
                 <div class="modal-footer px-0">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>

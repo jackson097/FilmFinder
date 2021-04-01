@@ -112,9 +112,6 @@ def account_page(request):
                 update_session_auth_hash(request, user)  # Important!
                 messages.success(request, 'Your password was successfully updated!')
                 return redirect('account')
-            else:
-                messages.error(request, 'Please correct the error below.')
-
         else:
             full_name = request.POST.get('full_name', user.full_name)
             email = request.POST.get('email_form', user.email)
