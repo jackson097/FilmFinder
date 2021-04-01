@@ -36,8 +36,6 @@
 </head>
 
 <body class="bg-dark">
-    
-
     <div class="container-fluid bg-dark pt-3 px-4 min-vh-100 d-flex flex-column">
         <nav class="navbar navbar-expand-lg navbar-dark bg-transparent">
             <div class="mr-auto">
@@ -91,6 +89,19 @@
                         <p class="name mb-0 px-3" style="display: inline-block;">{{ user.full_name }}</p>
                     </div>
                 </div>
+
+                <div class="row">
+                    <div class="col-12">
+                        <p class="text-center mb-0" style="color: green; font-weight: bold;">
+                            {% if messages %}
+                            {% for message in messages %}
+                                {{message}}
+                            {% endfor %}
+                            {% endif %}
+                        </p>
+                    </div>
+                </div>
+
                 <!-- Change name, email, password -->
                 <div class="row p-4 account_div my-3">
                     <div class="col-12">
