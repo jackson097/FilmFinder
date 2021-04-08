@@ -208,10 +208,10 @@ def get_suggestions(suggestion_type, suggestion_id, df, cosine_sim, genres):
                     unsorted_suggested.append(mov)
         
         # Sort suggestion list by user favourite genres
-        unsorted_suggested = sort_by_user_genre(unsorted_suggested, genres)
+        sorted_suggested = sort_by_user_genre(suggestion_title,unsorted_suggested, genres)
 
         # Add to suggestion list if not already in there
-        for movie in unsorted_suggested:
+        for movie in sorted_suggested:
             if movie not in suggested_movies:
                 suggested_movies.append(movie)
 
@@ -235,18 +235,42 @@ def get_suggestions(suggestion_type, suggestion_id, df, cosine_sim, genres):
         suggested_movies = get_related(suggestions)
 
         # Sorts suggested movies by user favourite genre
-        suggested_movies = sort_by_user_genre(suggested_movies, genres)
+        suggested_movies = sort_by_user_genre(suggestion_title, suggested_movies, genres)
 
         # Adds original movie to suggestion list
         suggested_movies.insert(0,movie)
 
     return suggested_movies, suggestion_title
 
-def sort_by_user_genre(movies, genres):
+def sort_by_user_genre(query, movies, genres):
     user_genres = genres.strip(",").split(",")
-    
-    
-    # Create dictionary of genres, weighting user favourites higher than other genres
+    movie_genre_list = []
 
+    # Get genres for movies in list
+    for movie in movies:
+        movie_genre = MovieGenre.objects.all().filter(movie_id=movie.movie_id)
+        weight = 0
 
-    return movies
+        for genre in movie_genre:
+            genre_title = Genre.objects.all().get(genre_id=genre.genre_id.genre_id).genre_title
+
+            # Increase weight by 1 each time user fav genre found in the movie's list of genres
+            if genre_title in user_genres:
+                weight += 1
+
+        # List of (movie, weight) tuples
+        movie_genre_list.append((movie,weight))
+
+    # Sort based on weight
+    sort = sorted(movie_genre_list, key=lambda x: x[1], reverse=True)
+
+    print("Sorted for " + query + ":")
+    print (sort)
+    print()
+    sorted_movies = []
+
+    # Return list of sorted movies without weight
+    for movie in sort:
+        sorted_movies.append(movie[0])
+
+    return sorted_movies

@@ -127,8 +127,8 @@ def results_page(request):
         user.recent_searches = search_query + "," + previous_searches
         user.save()
     
-    # TODO: Sort related movies based on users favourite genre
-    related = sort_by_user_genre(related, user.genres)
+    # Sort related movies based on users favourite genre
+    related = sort_by_user_genre("all related", related, user.genres)
 
     # Add related movie only if not already retrieved from search query
     for movie in related:
