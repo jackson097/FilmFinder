@@ -17,7 +17,7 @@ from Background.models import Background
 from Person.models import Person
 from accounts.models import User
 
-from filmFinder.utils import get_data, recommendations, get_related, search_actors, search_genres, get_suggestions
+from filmFinder.utils import get_data, recommendations, get_related, search_actors, search_genres, get_suggestions, sort_by_user_genre
 
 def home_page(request):
     movies = Movie.objects.all() 
@@ -62,6 +62,8 @@ def home_page(request):
     return redirect("login")
 
 def results_page(request):
+    user = User.objects.get(email = request.user)
+
     explore = []
     related = []
 
@@ -80,13 +82,11 @@ def results_page(request):
         suggestion_query = urllib.parse.unquote(request.GET.urlencode().split("=",1)[1].split("&",1)[1])
         suggestion_id = suggestion_query.split("=",1)[1].split("+",1)[0]
         suggestion_type = suggestion_query.split("=",1)[1].split("+",1)[1]
-        suggested_movies, suggestion_title = get_suggestions(suggestion_type, suggestion_id, df, cosine_sim)
+        suggested_movies, suggestion_title = get_suggestions(suggestion_type, suggestion_id, df, cosine_sim, user.genres)
     else:
         suggestion_title = None
         suggestion_type = None
         suggested_movies = None
-
-    user = User.objects.get(email = request.user)
 
     # Search by title
     movies = Movie.objects.filter(title__icontains=query)
@@ -106,7 +106,9 @@ def results_page(request):
     for movie in movies:
         # Returns list of movie ids
         rec = recommendations(df, movie.movie_id, cosine_sim)
-        related = get_related(rec)
+        for mov in get_related(rec):
+            if (mov not in related):
+                related.append(mov)
 
     # Search by genre
     movies_genres, explore = search_genres(query, explore)
@@ -116,7 +118,7 @@ def results_page(request):
             movies.append(movie)
 
     # Update recent searches
-    if (search_query.isspace() == False and search_query != ""):
+    if (search_query.isspace() == False and search_query != "" and not suggestion):
         previous_searches = user.recent_searches
         
         if (previous_searches == None):
@@ -125,8 +127,10 @@ def results_page(request):
         user.recent_searches = search_query + "," + previous_searches
         user.save()
     
-    # TODO: Sort related movies based on users favourite genre
+    # Sort related movies based on users favourite genre
+    related = sort_by_user_genre("all related", related, user.genres)
 
+    # Add related movie only if not already retrieved from search query
     for movie in related:
         if (movie not in movies):
             movies.append(movie)
@@ -153,7 +157,7 @@ def results_page(request):
         "search_query":search_query,
         "movies": movies, # ORDER IS: Exact title results, exact actor results, exact genre results, related title and actor results (if not suggestion)
         "num_results":num_results,
-        "explore_sorted":explore_sorted[:10],
+        "explore_sorted":explore_sorted[:10], # Return top 10 related results
         "suggestion_title":suggestion_title,
         "suggestion_type":suggestion_type,
     }

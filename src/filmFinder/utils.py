@@ -139,6 +139,7 @@ def clean_genres(genres):
 
     return cleaned_genres
 
+# Converts suggestion list of ids into suggestion list of movie objects
 def get_related(related_ids):
     related = []
     
@@ -180,38 +181,96 @@ def search_genres(query, explore):
     
     return movies_genres, explore
 
-def get_suggestions(suggestion_type, suggestion_id, df, cosine_sim):
+def get_suggestions(suggestion_type, suggestion_id, df, cosine_sim, genres):
     if suggestion_type == 'actor':
         suggestion_title = Person.objects.get(person_id=suggestion_id).name
+        
         actor_movies = []
         suggested_movies = []
+        unsorted_suggested = []
 
+        # Get all movies that actor is in
         for movie_person in MoviePerson.objects.filter(person_id=suggestion_id):
             movie = Movie.objects.get(movie_id=movie_person.movie_id.movie_id)
             actor_movies.append(movie)
             suggested_movies.append(movie)
 
+        # Get related movies for each movie that actor is in 
         for movie in actor_movies:
             suggestions = recommendations(df, movie.movie_id, cosine_sim)
+            
+            # Converts suggestion list of ids into suggestion list of movie objects
             all_suggestions = get_related(suggestions)
+            
+            # Add to suggestion list if not already in
             for mov in all_suggestions:
-                if mov not in suggested_movies:
-                    suggested_movies.append(mov)
+                if mov not in unsorted_suggested:
+                    unsorted_suggested.append(mov)
+        
+        # Sort suggestion list by user favourite genres
+        sorted_suggested = sort_by_user_genre(suggestion_title,unsorted_suggested, genres)
+
+        # Add to suggestion list if not already in there
+        for movie in sorted_suggested:
+            if movie not in suggested_movies:
+                suggested_movies.append(movie)
 
     elif suggestion_type == 'genre':
         suggestion_title = Genre.objects.get(genre_id=suggestion_id).genre_title
+
         suggested_movies = []
 
+        # Get all movies with genre
         for genre_movie in MovieGenre.objects.filter(genre_id=suggestion_id):
             movie = Movie.objects.get(movie_id=genre_movie.movie_id.movie_id)
             suggested_movies.append(movie)
     else:
         movie = Movie.objects.get(movie_id=suggestion_id)
         suggestion_title = movie.title.strip()
+
+        # Get all suggestions for movie (movie ids)
         suggestions = recommendations(df, int(suggestion_id), cosine_sim)
+
+        # Converts suggestion list of ids into suggestion list of movie objects
         suggested_movies = get_related(suggestions)
+
+        # Sorts suggested movies by user favourite genre
+        suggested_movies = sort_by_user_genre(suggestion_title, suggested_movies, genres)
+
+        # Adds original movie to suggestion list
         suggested_movies.insert(0,movie)
 
     return suggested_movies, suggestion_title
 
+def sort_by_user_genre(query, movies, genres):
+    user_genres = genres.strip(",").split(",")
+    movie_genre_list = []
 
+    # Get genres for movies in list
+    for movie in movies:
+        movie_genre = MovieGenre.objects.all().filter(movie_id=movie.movie_id)
+        weight = 0
+
+        for genre in movie_genre:
+            genre_title = Genre.objects.all().get(genre_id=genre.genre_id.genre_id).genre_title
+
+            # Increase weight by 1 each time user fav genre found in the movie's list of genres
+            if genre_title in user_genres:
+                weight += 1
+
+        # List of (movie, weight) tuples
+        movie_genre_list.append((movie,weight))
+
+    # Sort based on weight
+    sort = sorted(movie_genre_list, key=lambda x: x[1], reverse=True)
+
+    print("Sorted for " + query + ":")
+    print (sort)
+    print()
+    sorted_movies = []
+
+    # Return list of sorted movies without weight
+    for movie in sort:
+        sorted_movies.append(movie[0])
+
+    return sorted_movies
