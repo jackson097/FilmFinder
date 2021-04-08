@@ -243,7 +243,10 @@ def get_suggestions(suggestion_type, suggestion_id, df, cosine_sim, genres):
     return suggested_movies, suggestion_title
 
 def sort_by_user_genre(query, movies, genres):
-    user_genres = genres.strip(",").split(",")
+    if (genres):
+        user_genres = genres.strip(",").split(",")
+    else:
+        user_genres = []
     movie_genre_list = []
 
     # Get genres for movies in list
