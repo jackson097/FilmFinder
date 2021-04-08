@@ -20,7 +20,7 @@ class Command(BaseCommand):
     def handle(self, *args, **options):
         ########## importing title basics into appropiate tables.
         with open('data/movie_data.csv', "r", newline='') as myfile: 
-            next(myfile)
+            # next(myfile)
             # head = [next(myfile) for x in range(len(myfile.readlines()))]
             reader = csv.reader(myfile)
             for row in reader:
