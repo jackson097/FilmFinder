@@ -3,19 +3,19 @@
 {% block searchbar %}
 <!-- Search bar -->
 <form class="form-inline mx-auto input-group">
-    <input class="form-control mx-0 py-2" id="results_search" type="text" name="search" placeholder="Search by title, actor or genre" autocomplete="off">
+    <input class="form-control mx-0 py-2" id="results_search" type="text" name="search" placeholder="Search by title, actor or genre" autocomplete="off" value="{{search_query}}">
     <div class="input-group-append">
         <button class="btn w-auto h-100" id="results_enter" type="submit">Enter</button>
-
     </div>
   </form>
 {% endblock %}
 
 {% block info %}
 <!-- Page content -->
-<div class="row pt-3">
+<div class="row pt-3 ps-2">
     <!-- Search title -->
     <div class="col-9">
+        {% if not suggestion_title %}
         <div id="title1" class="d-inline title">
             Search results
         </div>
@@ -27,6 +27,18 @@
         <div id="title3" class="d-inline title">
           {{ num_results }} {% if num_results == 1%}movie{%else%} movies {%endif%} found
         </div>
+        {% else %}
+        <div id="title1" class="title" style="font-size: 30px !important;">
+            {% if suggestion_type == "title" %}
+            Titles related to: {{suggestion_title}}
+            {% elif suggestion_type == "actor" %}
+            Results for {{suggestion_title}} and more fan favourites
+            {% else %}
+            Titles in: {{suggestion_title}}
+            {% endif %}
+        </div>
+        {% endif %}
+
     </div>
     <!-- Filters -->
     <div class="col-3" style="text-align: end;">
@@ -42,6 +54,35 @@
           </div>
     </div>
 </div>
+
+<!-- Explore related -->
+{% if explore_sorted %}
+<div class="row ps-2 pb-2">
+    <div class="col-12">
+        <div class="row">
+            <div class="col-2">
+                <p class="mb-0 sub" style="display:inline-block;">Explore titles related to:</p>
+            </div>
+            <div class="col-10">
+                {% for term in explore_sorted %}
+                <form style="display:inline;">
+                    <input type="text" id="search" name="search" style="display:none;" value="{{search_query}}">
+                    <input type="text" id="suggestion" name="suggestion" style="display:none;" value="{{term.1}} {{term.2}}">
+                    {% if term.0 == suggestion_title %}
+                    <input type="submit" class="explore px-1 selected_explore" value="{{term.0}}" disabled></input>
+                    {% else %}
+                    <input type="submit" class="explore px-1" value="{{term.0}}"></input>
+                    {% endif %}
+                </form>
+                {% if not forloop.last %}
+                <p class="mb-0" style="display:inline-block; color: #747474; font-weight:lighter;">|</p>
+                {% endif %}
+            {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
+{%endif%}
 
 <div class ="pb-5">
     {% for movie in movies%}

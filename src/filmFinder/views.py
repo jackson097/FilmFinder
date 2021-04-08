@@ -7,6 +7,7 @@ from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from django.db.models import Q
 import urllib.parse
+import difflib
 
 from Movies.models import Movie, MovieGenre, MoviePerson
 from Genres.models import Genre
@@ -16,7 +17,7 @@ from Background.models import Background
 from Person.models import Person
 from accounts.models import User
 
-from filmFinder.utils import get_data, recommendations
+from filmFinder.utils import get_data, recommendations, get_related, search_actors, search_genres, get_suggestions
 
 def home_page(request):
     movies = Movie.objects.all() 
@@ -61,10 +62,29 @@ def home_page(request):
     return redirect("login")
 
 def results_page(request):
-    search_query = urllib.parse.unquote(request.GET.urlencode().split("=",1)[1])
-    search_query = search_query.replace("+", " ")
+    explore = []
+    related = []
 
+    suggestion = request.GET.get("suggestion", None)
     query = request.GET.get("search", None)
+
+    # Get data for recommendations
+    df, cosine_sim = get_data()
+
+    # Get search query from url
+    search_query = urllib.parse.unquote(request.GET.urlencode().split("=",1)[1].split("&",1)[0])
+    search_query = search_query.replace("+", " ")
+    
+    # Get suggestion query from url
+    if (suggestion):
+        suggestion_query = urllib.parse.unquote(request.GET.urlencode().split("=",1)[1].split("&",1)[1])
+        suggestion_id = suggestion_query.split("=",1)[1].split("+",1)[0]
+        suggestion_type = suggestion_query.split("=",1)[1].split("+",1)[1]
+        suggested_movies, suggestion_title = get_suggestions(suggestion_type, suggestion_id, df, cosine_sim)
+    else:
+        suggestion_title = None
+        suggestion_type = None
+        suggested_movies = None
 
     user = User.objects.get(email = request.user)
 
@@ -72,44 +92,24 @@ def results_page(request):
     movies = Movie.objects.filter(title__icontains=query)
     movies = list(movies)
 
+    for movie in movies:
+        explore.append((movie.title.strip(), movie.movie_id, 'title'))
+
     # Search by actor
-    actors = Person.objects.filter(name__icontains=query)
-    movies_actors = []
-    for actor in actors:
-        # Actor can be in more than one movie, iterate through each actors movies
-        for movie_person in MoviePerson.objects.filter(person_id=actor.person_id):
-            movie = Movie.objects.get(movie_id=movie_person.movie_id.movie_id)
-            if movie not in movies_actors:
-                movies_actors.append(movie)
+    movies_actors, explore = search_actors(search_query, explore)
 
     for movie in movies_actors:
         if (movie not in movies):
             movies.append(movie)
 
-    # Get data for recommendations
-    df, cosine_sim = get_data()
-
-    related = []
-
     # Get recommendations for each movie in result (only for actor and title queries)
     for movie in movies:
         # Returns list of movie ids
         rec = recommendations(df, movie.movie_id, cosine_sim)
-        for movie_id in rec:
-            rec_movie = Movie.objects.get(movie_id=movie_id)
-            # only add recommendation if not already in recommendation list
-            if (rec_movie not in related):
-                related.append(rec_movie)
+        related = get_related(rec)
 
     # Search by genre
-    genres = Genre.objects.filter(genre_title__icontains=query)
-    movies_genres = []
-    for genre in genres:
-        # More than one movie can have same genre
-        for genre_movie in MovieGenre.objects.filter(genre_id=genre.genre_id):
-            movie = Movie.objects.get(movie_id=genre_movie.movie_id.movie_id)
-            if movie not in movies_genres:
-                movies_genres.append(movie)
+    movies_genres, explore = search_genres(query, explore)
     
     for movie in movies_genres:
         if (movie not in movies):
@@ -132,12 +132,30 @@ def results_page(request):
             movies.append(movie)
 
     num_results = len(movies)
+    
+    explore_sorted = []
+
+    if (query):
+        for term in explore:
+            ratio = difflib.SequenceMatcher(None, term[0], query).ratio()
+            explore_sorted.append((term[0], term[1], term[2], ratio))
+
+        if (len(query) == 1): # User searching by letter
+            explore_sorted = sorted(explore_sorted, key=lambda x: x[0], reverse=False)
+        else:
+            explore_sorted = sorted(explore_sorted, key=lambda x: x[3], reverse=True)
+                
+    if (suggested_movies):
+        movies = suggested_movies
 
     context = {
         "title":"Search results for " + search_query,
         "search_query":search_query,
-        "movies": movies, # ORDER IS: Exact title results, exact actor results, exact genre results, related title and actor results
-        "num_results":num_results
+        "movies": movies, # ORDER IS: Exact title results, exact actor results, exact genre results, related title and actor results (if not suggestion)
+        "num_results":num_results,
+        "explore_sorted":explore_sorted[:10],
+        "suggestion_title":suggestion_title,
+        "suggestion_type":suggestion_type,
     }
 
     return render(request, "results.html", context)

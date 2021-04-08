@@ -278,6 +278,33 @@ input[type=text]:focus {
     color: #747474;
 }
 
+.sub{
+    color: #747474;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.explore {
+    color: white;
+    text-decoration: none;
+    font-size: 14px;
+    background-color: transparent;
+    border: none;
+}
+
+.selected_explore {
+    color: #747474 !important;
+}
+
+.selected_explore:hover {
+    color: #747474 !important;
+}
+
+.explore:hover {
+    color: red;
+    
+}
+
 /* ----------------- Movie ----------------- */
 .img_gradient {
     background-size: cover;

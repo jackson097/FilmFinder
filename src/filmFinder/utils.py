@@ -52,14 +52,14 @@ def get_data():
 
     return final_df, cosine_sim
 
-def recommendations(df, id, cosine_sim):
+def recommendations(df, iden, cosine_sim):
     indices = pd.Series(df.index)
 
     # initializing the empty list of recommended movies
     recommended_movies = []
     
     # getting the index of the movie that matches the title
-    idx = indices[indices == id].index[0]
+    idx = indices[indices == iden].index[0]
 
     # creating a Series with the similarity scores in descending order
     score_series = pd.Series(cosine_sim[idx]).sort_values(ascending = False)
@@ -138,4 +138,80 @@ def clean_genres(genres):
         cleaned_genres += genre.lower() + " "
 
     return cleaned_genres
-        
+
+def get_related(related_ids):
+    related = []
+    
+    for movie_id in related_ids:
+        rec_movie = Movie.objects.get(movie_id=movie_id)
+        # only add recommendation if not already in recommendation list
+        if (rec_movie not in related):
+            related.append(rec_movie)
+
+    return related
+
+def search_actors(query, explore):
+    actors = Person.objects.filter(name__icontains=query)
+    
+    movies_actors = []
+    
+    for actor in actors:
+        explore.append((actor.name, actor.person_id, 'actor'))
+        # Actor can be in more than one movie, iterate through each actors movies
+        for movie_person in MoviePerson.objects.filter(person_id=actor.person_id):
+            movie = Movie.objects.get(movie_id=movie_person.movie_id.movie_id)
+            if movie not in movies_actors:
+                movies_actors.append(movie)
+
+    return movies_actors, explore
+
+def search_genres(query, explore):
+    genres = Genre.objects.filter(genre_title__icontains=query)
+    
+    movies_genres = []
+    
+    for genre in genres:
+        explore.append((genre.genre_title, genre.genre_id, 'genre'))
+        # More than one movie can have same genre
+        for genre_movie in MovieGenre.objects.filter(genre_id=genre.genre_id):
+            movie = Movie.objects.get(movie_id=genre_movie.movie_id.movie_id)
+            if movie not in movies_genres:
+                movies_genres.append(movie)
+    
+    return movies_genres, explore
+
+def get_suggestions(suggestion_type, suggestion_id, df, cosine_sim):
+    if suggestion_type == 'actor':
+        suggestion_title = Person.objects.get(person_id=suggestion_id).name
+        actor_movies = []
+        suggested_movies = []
+
+        for movie_person in MoviePerson.objects.filter(person_id=suggestion_id):
+            movie = Movie.objects.get(movie_id=movie_person.movie_id.movie_id)
+            actor_movies.append(movie)
+            suggested_movies.append(movie)
+
+        for movie in actor_movies:
+            suggestions = recommendations(df, movie.movie_id, cosine_sim)
+            all_suggestions = get_related(suggestions)
+            for mov in all_suggestions:
+                if mov not in suggested_movies:
+                    suggested_movies.append(mov)
+
+    elif suggestion_type == 'genre':
+        suggestion_title = Genre.objects.get(genre_id=suggestion_id).genre_title
+        suggested_movies = []
+
+        for genre_movie in MovieGenre.objects.filter(genre_id=suggestion_id):
+            movie = Movie.objects.get(movie_id=genre_movie.movie_id.movie_id)
+            suggested_movies.append(movie)
+    else:
+        movie = Movie.objects.get(movie_id=suggestion_id)
+        suggestion_title = movie.title.strip()
+        suggestions = recommendations(df, int(suggestion_id), cosine_sim)
+        suggested_movies = get_related(suggestions)
+        suggested_movies.insert(0,movie)
+
+    return suggested_movies, suggestion_title
+
+
