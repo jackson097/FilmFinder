@@ -208,9 +208,10 @@ def top_movies_page(request):
 
             top_movies.append([movie, reception.get(movie_id=movie.movie_id.movie_id).avgRatings, release, length])
 
-
+    print(query)
     context = {
-        "top_movies": top_movies
+        "top_movies": top_movies,                                   
+        "query": query
         # Top Movies
     }
 

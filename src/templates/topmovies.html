@@ -3,7 +3,7 @@
 {% block searchbar %}
 <!-- Search bar -->
 <form class="form-inline mx-auto input-group">
-    <input class="form-control mx-0 py-2" id="results_search" type="text" name="search" placeholder="Search by title, actor or genre in top movies" autocomplete="off">
+    <input class="form-control mx-0 py-2" id="results_search" type="text" name="search" placeholder="Search by title, actor or genre in top movies" autocomplete="off" value="{% if query != None %}{{ query }}{%endif%}">
     <div class="input-group-append">
         <button class="btn w-auto h-100" id="results_enter" type="submit">Enter</button>
 
@@ -26,6 +26,23 @@
         
     </div>
 </div>
+
+{% if query != None%}
+<div class="row pt-3 ps-2">
+    <!-- Search title -->
+    <div class="col-12">
+        <div id="title1" class="d-inline title">
+            Search results for
+        </div>
+        <div id="title2" class="d-inline title">
+            "{{ query }}"
+        </div>
+        <div id="title3" class="d-inline title">
+          {{ top_movies|length }} {% if top_movies|length == 1%}movie{%else%} movies {%endif%} found
+        </div>
+    </div>
+</div>
+{%endif%}
 
 <!-- Top movie results -->
 <div class="pb-5">
