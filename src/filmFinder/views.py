@@ -106,7 +106,9 @@ def results_page(request):
     for movie in movies:
         # Returns list of movie ids
         rec = recommendations(df, movie.movie_id, cosine_sim)
-        related = get_related(rec)
+        for mov in get_related(rec):
+            if (mov not in related):
+                related.append(mov)
 
     # Search by genre
     movies_genres, explore = search_genres(query, explore)
