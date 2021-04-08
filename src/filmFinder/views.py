@@ -16,6 +16,8 @@ from Background.models import Background
 from Person.models import Person
 from accounts.models import User
 
+from filmFinder.utils import get_data, recommendations
+
 def home_page(request):
     movies = Movie.objects.all() 
     genres = Genre.objects.all()
@@ -63,7 +65,6 @@ def results_page(request):
     search_query = search_query.replace("+", " ")
 
     query = request.GET.get("search", None)
-    print(query)
 
     user = User.objects.get(email = request.user)
 
@@ -71,26 +72,45 @@ def results_page(request):
 
     # Update recent searches
     if (search_query.isspace() == False and search_query != ""):
-        # previous_searches = request.user.recent_searches
         previous_searches = user.recent_searches
         
         if (previous_searches == None):
             previous_searches = ""
 
-        # request.user.recent_searches = search_query + "," + previous_searches
-        # request.user.save()
         user.recent_searches = search_query + "," + previous_searches
         user.save()
+
+    # Get data for recommendations
+    df, cosine_sim = get_data()
+
+    related = []
+
+    # Get recommendations for each movie in result
+    for movie in movies:
+        # Returns list of movie ids
+        rec = recommendations(df, movie.movie_id, cosine_sim)
+        for movie_id in rec:
+            rec_movie = Movie.objects.get(movie_id=movie_id)
+            # only add recommendation if not already in recommendation list
+            if (rec_movie not in related):
+                related.append(rec_movie)
+    
+    # TODO: Sort related movies based on users favourite genre
+
+    movies = list(movies)
+
+    for movie in related:
+        if (movie not in movies):
+            movies.append(movie)
+
+    num_results = len(movies)
 
     context = {
         "title":"Search results for " + search_query,
         "search_query":search_query,
-        "movies": movies
-        # Movie results
+        "movies": movies, # Movie exact results
+        "num_results":num_results
     }
-
-    # Find movies
-    print(movies)
 
     return render(request, "results.html", context)
 
