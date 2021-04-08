@@ -68,7 +68,52 @@ def results_page(request):
 
     user = User.objects.get(email = request.user)
 
+    # Search by title
     movies = Movie.objects.filter(title__icontains=query)
+    movies = list(movies)
+
+    # Search by actor
+    actors = Person.objects.filter(name__icontains=query)
+    movies_actors = []
+    for actor in actors:
+        # Actor can be in more than one movie, iterate through each actors movies
+        for movie_person in MoviePerson.objects.filter(person_id=actor.person_id):
+            movie = Movie.objects.get(movie_id=movie_person.movie_id.movie_id)
+            if movie not in movies_actors:
+                movies_actors.append(movie)
+
+    for movie in movies_actors:
+        if (movie not in movies):
+            movies.append(movie)
+
+    # Get data for recommendations
+    df, cosine_sim = get_data()
+
+    related = []
+
+    # Get recommendations for each movie in result (only for actor and title queries)
+    for movie in movies:
+        # Returns list of movie ids
+        rec = recommendations(df, movie.movie_id, cosine_sim)
+        for movie_id in rec:
+            rec_movie = Movie.objects.get(movie_id=movie_id)
+            # only add recommendation if not already in recommendation list
+            if (rec_movie not in related):
+                related.append(rec_movie)
+
+    # Search by genre
+    genres = Genre.objects.filter(genre_title__icontains=query)
+    movies_genres = []
+    for genre in genres:
+        # More than one movie can have same genre
+        for genre_movie in MovieGenre.objects.filter(genre_id=genre.genre_id):
+            movie = Movie.objects.get(movie_id=genre_movie.movie_id.movie_id)
+            if movie not in movies_genres:
+                movies_genres.append(movie)
+    
+    for movie in movies_genres:
+        if (movie not in movies):
+            movies.append(movie)
 
     # Update recent searches
     if (search_query.isspace() == False and search_query != ""):
@@ -79,25 +124,8 @@ def results_page(request):
 
         user.recent_searches = search_query + "," + previous_searches
         user.save()
-
-    # Get data for recommendations
-    df, cosine_sim = get_data()
-
-    related = []
-
-    # Get recommendations for each movie in result
-    for movie in movies:
-        # Returns list of movie ids
-        rec = recommendations(df, movie.movie_id, cosine_sim)
-        for movie_id in rec:
-            rec_movie = Movie.objects.get(movie_id=movie_id)
-            # only add recommendation if not already in recommendation list
-            if (rec_movie not in related):
-                related.append(rec_movie)
     
     # TODO: Sort related movies based on users favourite genre
-
-    movies = list(movies)
 
     for movie in related:
         if (movie not in movies):
@@ -108,7 +136,7 @@ def results_page(request):
     context = {
         "title":"Search results for " + search_query,
         "search_query":search_query,
-        "movies": movies, # Movie exact results
+        "movies": movies, # ORDER IS: Exact title results, exact actor results, exact genre results, related title and actor results
         "num_results":num_results
     }
 
