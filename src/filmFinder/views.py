@@ -118,7 +118,7 @@ def results_page(request):
             movies.append(movie)
 
     # Update recent searches
-    if (search_query.isspace() == False and search_query != ""):
+    if (search_query.isspace() == False and search_query != "" and not suggestion):
         previous_searches = user.recent_searches
         
         if (previous_searches == None):
