@@ -193,12 +193,10 @@ def top_movies_page(request):
 
     if query != None:
         top_movies = [] 
-        filtered_top_movies = reception.filter(movie_id__title__icontains=query, avgRatings__gte=7).order_by('-avgRatings', '-numRatings')     
-
-        genre = Genre.objects.filter(genre_title__icontains=query)
+        filtered_top_movies = reception.filter(movie_id__title__icontains=query, avgRatings__gte=7).order_by('-avgRatings', '-numRatings')
         
+        # Search by genre
         movies_genres, explore = search_genres(query, explore)
-
         for movie in movies_genres:
             r = reception.filter(movie_id=movie.movie_id, avgRatings__gte=7).order_by('-avgRatings', '-numRatings')  
             for r_movie in r:
@@ -212,10 +210,28 @@ def top_movies_page(request):
                     length =  background.get(movie_id=movie.movie_id).length
                 except Background.DoesNotExist:
                     length = None
-                    
+
                 top_movies.append([r_movie, r_movie.avgRatings, release, length])
-                # print(r_movie)
         
+        #Search by Actor
+        movies_actors, explore = search_actors(query, explore)
+        for movie in movies_actors:
+            r = reception.filter(movie_id=movie.movie_id, avgRatings__gte=7).order_by('-avgRatings', '-numRatings')  
+            for r_movie in r:
+                try:
+                    release = background.get(movie_id=movie.movie_id).releaseDate
+                except Background.DoesNotExist:
+                    release = None
+
+                # Length
+                try:
+                    length =  background.get(movie_id=movie.movie_id).length
+                except Background.DoesNotExist:
+                    length = None
+
+                top_movies.append([r_movie, r_movie.avgRatings, release, length])
+
+        #Search by title
         for movie in filtered_top_movies:  
             try:
                 release = background.get(movie_id=movie.movie_id).releaseDate
