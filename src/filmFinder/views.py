@@ -165,10 +165,11 @@ def results_page(request):
     return render(request, "results.html", context)
 
 def top_movies_page(request):
-
     reception = Reception.objects.all()
     movies = MovieGenre.objects.all()
     background = Background.objects.all()
+
+    explore = []
 
     query = request.GET.get("search", None)
 
@@ -193,6 +194,27 @@ def top_movies_page(request):
     if query != None:
         top_movies = [] 
         filtered_top_movies = reception.filter(movie_id__title__icontains=query, avgRatings__gte=7).order_by('-avgRatings', '-numRatings')     
+
+        genre = Genre.objects.filter(genre_title__icontains=query)
+        
+        movies_genres, explore = search_genres(query, explore)
+
+        for movie in movies_genres:
+            r = reception.filter(movie_id=movie.movie_id, avgRatings__gte=7).order_by('-avgRatings', '-numRatings')  
+            for r_movie in r:
+                try:
+                    release = background.get(movie_id=movie.movie_id).releaseDate
+                except Background.DoesNotExist:
+                    release = None
+
+                # Length
+                try:
+                    length =  background.get(movie_id=movie.movie_id).length
+                except Background.DoesNotExist:
+                    length = None
+                    
+                top_movies.append([r_movie, r_movie.avgRatings, release, length])
+                # print(r_movie)
         
         for movie in filtered_top_movies:  
             try:
@@ -204,11 +226,9 @@ def top_movies_page(request):
             try:
                 length =  background.get(movie_id=movie.movie_id).length
             except Background.DoesNotExist:
-                length = None
-
+                length = None   
             top_movies.append([movie, reception.get(movie_id=movie.movie_id.movie_id).avgRatings, release, length])
 
-    print(query)
     context = {
         "top_movies": top_movies,                                   
         "query": query
